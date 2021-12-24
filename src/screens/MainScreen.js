@@ -1,29 +1,20 @@
-import React from 'react'
-import { View,  StyleSheet, FlatList} from 'react-native'
-import { DATA } from '../data'
-import { Order } from '../components/Order'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {OrderList } from '../components/OrdersList'
+import { loadOrders } from '../store/actions/order'
+
 export const MainScreen = ({navigation}) => {
-    
     const openOrderHandler = order => {
         navigation.navigate('OrderScreen' , {orderId: order.id , orderName: order.name ,})
     }
 
-    return (
-        <>
-            <View style={style.wrapper}>
-                <FlatList 
-                    data = {DATA}
-                    keyExtractor={order => order.id.toString()}
-                    renderItem={({ item }) => <Order order={item}  onOpen={openOrderHandler}/>}
-                />
-            </View>
-        </>
-    )
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(loadOrders())
+    }, [dispatch])
+
+    const allOrders = useSelector(state => state.order.allOrders)
+    return <OrderList data={allOrders} onOpen={openOrderHandler} />
+   
 }
-
-
-const style = StyleSheet.create ({
-    wrapper: {
-       padding: 10
-    }
-})

@@ -8,13 +8,18 @@ import {
     ScrollView,
     Alert
   } from 'react-native'
-import { DATA } from '../data'
+
+import { useDispatch, useSelector } from 'react-redux'
 import { THEME } from '../theme'
 import TestBottomTab from '../navigation/TestBottomTab'
+import { removeOrders } from '../store/actions/order'
+
 export const OrderScreen = ({route, navigation}) => {
-   
+    const dispatch = useDispatch()
     const { orderId } = route.params;
-    const order = DATA.find(o=> o.id === orderId)
+    const order = useSelector(state =>
+      state.order.allOrders.find(o=> o.id === orderId)
+    )
 
     const removeHandler = () => {
         Alert.alert(
@@ -25,12 +30,19 @@ export const OrderScreen = ({route, navigation}) => {
               text: 'Отменить',
               style: 'cancel'
             },
-            { text: 'Удалить', style: 'destructive', onPress: () => {} }
+            { text: 'Удалить', style: 'destructive',
+             onPress: () => {
+              navigation.navigate('Объекты')
+              dispatch(removeOrders(orderId))
+             } }
           ],
           { cancelable: false }
         )
       }
 
+    if (!order) {
+      return null
+    }
     return (
         <View style={styles.wrapper}>
           <ScrollView>

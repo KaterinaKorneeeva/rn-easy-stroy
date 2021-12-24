@@ -4,7 +4,7 @@ import { DATA } from '../data'
 export const EditOrderScreen = ({route, navigation}) => {
 
     
-    console.log('paramsparams',route);
+    // console.log('paramsparams',route);
     const { orderId } = route.params;
     const order = DATA.find(o=> o.id === orderId)
 
