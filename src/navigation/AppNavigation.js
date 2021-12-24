@@ -17,11 +17,53 @@ import { BuildingIcon } from '../../assets/icons/iconsBottomBar/BuildingIcon';
 import { CompanionsIcon } from '../../assets/icons/iconsBottomBar/CompanionsIcon';
 import { ArrowUpIcon } from '../../assets/icons/iconsBottomBar/ArrowUpIcon';
 import { ArrowDownIcon } from '../../assets/icons/iconsBottomBar/ArrowDownIcon';
-
-
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { AppHeaderIcon } from '../components/AppHeaderIcon'
 import { PlusIcon } from '../../assets/icons/PlusIcon';
 
-const Stack = createStackNavigator();
+
+ // функция замена тайтла при переключении табов
+ const INITIAL_ROUTE_NAME = 'Объекты';
+
+ function getHeaderTitle(route) {
+   const routeName = getFocusedRouteNameFromRoute(route) ?? INITIAL_ROUTE_NAME;
+
+   switch (routeName) {
+     case 'Объекты':
+       return 'Объекты';
+     case 'Справочники':
+       return 'Справочники';
+   }
+ }
+
+  // функция замена иконки при переключении табов
+ function getHeaderIcon(route) {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? INITIAL_ROUTE_NAME;
+    switch (routeName) {
+      case 'Объекты':
+        return (
+            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                <Item
+                title='Add Object'
+                iconName='add-circle'
+                onPress={() => navigation.navigate('CreateOrderScreen')}
+                />  
+            </HeaderButtons>
+        )
+      case 'Справочники':
+        return (
+            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                <Item
+                title='Add Object'
+                iconName='add-circle-outline'
+                onPress={() => navigation.navigate('CreateOrderScreen')}
+                />  
+            </HeaderButtons>
+        )        
+    }
+  }
+  
+ 
 const Tab = createBottomTabNavigator();
   function MainTabs() {
     return (
@@ -89,19 +131,11 @@ const Tab = createBottomTabNavigator();
   }
   
 
-  // функция замена тайтла при переключении табов
-  const INITIAL_ROUTE_NAME = 'Объекты';
-  function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? INITIAL_ROUTE_NAME;
-
-    switch (routeName) {
-      case 'Объекты':
-        return 'Объекты';
-      case 'Справочники':
-        return 'Справочники';
-    }
-  }
+ 
   
+
+const Stack = createStackNavigator();
+
 export default function AppNavigation() {
     return (
         <NavigationContainer>
@@ -122,10 +156,7 @@ export default function AppNavigation() {
             options={({ route, navigation }) => ({
                 headerTitle: getHeaderTitle(route),    
                 headerRight: () => 
-                <Button 
-                    onPress={() => navigation.navigate('CreateOrderScreen')}
-                    title="add" 
-                />
+                    getHeaderIcon(route),
               })}
         />
         <Stack.Screen 
@@ -133,10 +164,7 @@ export default function AppNavigation() {
             component={MainTabs} 
             options={({ navigation }) => ({
                 headerRight: () => 
-                <Button 
-                    onPress={() => navigation.navigate('CreateOrderScreen')}
-                    title="add22" 
-                />
+                    getHeaderIcon(route),
               })}
         />
         <Stack.Screen 
@@ -160,11 +188,7 @@ export default function AppNavigation() {
                     />
                 })} 
         />
-        <Stack.Screen 
-            name="EditOrderScreen" 
-            component={EditOrderScreen} 
-        />
-
+        <Stack.Screen name="EditOrderScreen" component={EditOrderScreen} />
         <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
         </Stack.Navigator>
       </NavigationContainer>
