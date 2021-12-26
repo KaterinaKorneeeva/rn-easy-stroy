@@ -37,7 +37,7 @@ import { PlusIcon } from '../../assets/icons/PlusIcon';
  }
 
   // функция замена иконки при переключении табов
- function getHeaderIcon(route) {
+ function getHeaderIcon({ navigation, route }) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? INITIAL_ROUTE_NAME;
     switch (routeName) {
       case 'Объекты':
@@ -156,7 +156,7 @@ export default function AppNavigation() {
             options={({ route, navigation }) => ({
                 headerTitle: getHeaderTitle(route),    
                 headerRight: () => 
-                    getHeaderIcon(route),
+                    getHeaderIcon({navigation, route}),
               })}
         />
         <Stack.Screen 
@@ -164,7 +164,8 @@ export default function AppNavigation() {
             component={MainTabs} 
             options={({ navigation }) => ({
                 headerRight: () => 
-                    getHeaderIcon(route),
+                    getHeaderIcon({navigation, route}),
+                    
               })}
         />
         <Stack.Screen 

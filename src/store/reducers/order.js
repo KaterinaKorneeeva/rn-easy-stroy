@@ -1,4 +1,4 @@
-import { LOAD_ORDERS, REMOVE_ORDER } from "../types"
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER} from "../types"
 
 const initialState = {
   allOrders: [],
@@ -16,6 +16,11 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         allOrders: state.allOrders.filter(p => p.id !== action.payload),
+      }
+      case ADD_ORDER : 
+      return {
+        ...state,
+        allOrders: [{...action.payload}, ...state.allOrders]
       }
   }
   
