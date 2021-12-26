@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import {
     View,
@@ -13,20 +13,22 @@ import {
 } from 'react-native'
 import { THEME } from '../theme'
 import { addOrder } from '../store/actions/order'
+import { PhotoPicker } from '../components/PhotoPicker'
 
 
 export const CreateOrderScreen = ({navigation}) => {
     const dispatch = useDispatch();
     const [text, setText] = useState('')
-    const img = 'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg'
+    const imgRef = useRef
 
-
-   
+    const photoPickHandler = uri => {
+        imgRef.current = uri
+    }
     const saveHandler = () => {
         const order = {
             date: new Date().toJSON(),
             text: text,
-            img : img
+            img: imgRef.current,
         }
         dispatch(addOrder(order))
         navigation.navigate('Объекты') 
@@ -43,16 +45,13 @@ export const CreateOrderScreen = ({navigation}) => {
                     onChangeText = {setText}
                     multiline
                 />
-                <Image
-                    style = {{ width: '100%', height: 200, marginBottom: 10}}
-                    source= {{
-                    uri: img
-                    }}
-                />
+                <PhotoPicker onPick= {photoPickHandler}/>
+               
                 <Button 
                     title= 'Создать пост'  
                     color= {THEME.MAIN_COLOR}
                     onPress={saveHandler}
+                    disabled={!text}
                 />
             </View>
             </TouchableWithoutFeedback>
