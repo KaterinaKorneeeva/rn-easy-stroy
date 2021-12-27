@@ -3,8 +3,6 @@ import { View, Text, StyleSheet } from 'react-native'
 import { DATA } from '../data'
 export const EditOrderScreen = ({route, navigation}) => {
 
-    
-    // console.log('paramsparams',route);
     const { orderId } = route.params;
     const order = DATA.find(o=> o.id === orderId)
 

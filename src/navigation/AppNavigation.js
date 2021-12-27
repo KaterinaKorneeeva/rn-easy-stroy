@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import { Platform, Button } from 'react-native'
+import { Platform, Button, StyleSheet, View} from 'react-native'
 import { MainScreen } from '../screens/MainScreen';
 import { CreateOrderScreen } from '../screens/CreateOrderScreen';
 import { EditOrderScreen } from '../screens/EditOrderScreen';
@@ -20,7 +20,7 @@ import { ArrowDownIcon } from '../../assets/icons/iconsBottomBar/ArrowDownIcon';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { AppHeaderIcon } from '../components/AppHeaderIcon'
 import { PlusIcon } from '../../assets/icons/PlusIcon';
-
+import  TabBar  from '../components/TabBar'
 
  // функция замена тайтла при переключении табов
  const INITIAL_ROUTE_NAME = 'Объекты';
@@ -67,27 +67,16 @@ import { PlusIcon } from '../../assets/icons/PlusIcon';
 const Tab = createBottomTabNavigator();
   function MainTabs() {
     return (
-      <Tab.Navigator>
-        <Tab.Screen 
-            name="Объекты" 
-            component={MainScreen}
-            options={{
-                tabBarLabel: 'Объекты',
-                tabBarIcon: () => {
-                    return <BuildingIcon color={'blue'}  />
-                }
-            }}
-        />
-        <Tab.Screen 
-            name="Справочники" 
-            component={SellersListScreen}
-            options={{
-                tabBarLabel: 'Справочники',
-                tabBarIcon: () => {
-                    return <CompanionsIcon  color={'blue'} />
-                }
-            }}
-         />
+        <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+            <Tab.Screen 
+                name="Объекты" 
+                component={MainScreen}
+                
+            />
+            <Tab.Screen 
+                name="Список" 
+                component={SellersListScreen}
+            />
       </Tab.Navigator>
     );
   }
@@ -195,3 +184,19 @@ export default function AppNavigation() {
       </NavigationContainer>
     );
   }
+
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      marginBottom: 10
+    },
+    container: {
+        flexDirection : 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        marginTop: 10,
+        backgroundColor: THEME.MAIN_COLOR,
+        borderRadius: 20,
+    }
+  })
+  
