@@ -48,7 +48,13 @@ export const OrderScreen = ({route, navigation}) => {
           <ScrollView>
               <Image source={{ uri: order.img }} style={styles.image} />
               <View style={styles.textWrap}>
-                  <Text style={styles.title}>{order.text}</Text>
+                  <Text style={styles.title}>{order.name}</Text>
+                  <Text style={styles.title}>{order.address}</Text>
+                  <Text style={styles.title}>{order.status}</Text>
+                  <Text style={styles.title}>Об объекте</Text>
+                  <Text style={styles.title}>{order.сustomer}</Text>
+                  <Text style={styles.title}>{order.number}</Text>
+                  <Text style={styles.title}>{order.description}</Text>
               </View>
               <Button
                   title='Удалить'

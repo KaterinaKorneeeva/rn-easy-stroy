@@ -1,13 +1,27 @@
 import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
 import { Order } from '../components/Order'
 
 export const OrderList = ({ data, onOpen }) => {
+  const numColumns = 2
+ 
+  const formData = (data, numColumns) => {
+    const totalRows= Math.floor(data.length / numColumns)
+    let totalLastRow = data.length - (totalRows * numColumns)
+
+    while (totalLastRow !==0  && totalLastRow !==numColumns) {
+      data.push({key:'blank', empty :true, id: 'blank'})
+      totalLastRow++
+    }
+    return data
+  }
+
   return (
     <View style={styles.wrapper}>
       <FlatList
-        data={data}
-        keyExtractor={post => post.id.toString()}
+        numColumns = {numColumns}
+        data={formData(data, numColumns)}
+        keyExtractor={order => order.id.toString()}
         renderItem={({ item }) => <Order order={item} onOpen={onOpen} />}
       />
     </View>
@@ -16,6 +30,7 @@ export const OrderList = ({ data, onOpen }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: 10
+    padding: 7, 
+    flex:1,
   }
 })

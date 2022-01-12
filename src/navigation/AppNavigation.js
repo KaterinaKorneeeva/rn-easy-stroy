@@ -31,7 +31,7 @@ import  TabBar  from '../components/TabBar'
    switch (routeName) {
      case 'Объекты':
        return 'Объекты';
-     case 'Справочники':
+     case 'Список':
        return 'Справочники';
    }
  }
@@ -50,7 +50,7 @@ import  TabBar  from '../components/TabBar'
                 />  
             </HeaderButtons>
         )
-      case 'Справочники':
+      case 'Список':
         return (
             <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                 <Item
