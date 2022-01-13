@@ -4,7 +4,6 @@ import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions} 
 export const Order = ({ order, onOpen }) => {
 
   const WIDTH = Dimensions.get('window').width/2
-  console.log('WIDTHWIDTH',WIDTH);
 
   if (order.empty) {
     return <View style={[styles.item ,styles.itemInvisible]}></View>
@@ -22,6 +21,7 @@ export const Order = ({ order, onOpen }) => {
           <View style={styles.textBlock}>
             <Text style={styles.title}>{order.responsible}</Text>
           </View>
+
           <View style={[styles.textBlock, {position: 'absolute', bottom: 15 , left: 15}]}> 
             <Text style={styles.title}> {order.status}</Text>
           </View>

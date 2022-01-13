@@ -6,7 +6,8 @@ import {
     Image,
     Button,
     ScrollView,
-    Alert
+    Alert,
+    SafeAreaView,
   } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -40,12 +41,18 @@ export const OrderScreen = ({route, navigation}) => {
         )
       }
 
+
+      function renderTopInfoOrder () {
+        return (<Text>renderTopInfoOrder</Text>)
+      }
+
     if (!order) {
       return null
     }
     return (
         <View style={styles.wrapper}>
           <ScrollView>
+              {renderTopInfoOrder()}
               <Image source={{ uri: order.img }} style={styles.image} />
               <View style={styles.textWrap}>
                   <Text style={styles.title}>{order.name}</Text>
@@ -54,6 +61,7 @@ export const OrderScreen = ({route, navigation}) => {
                   <Text style={styles.title}>Об объекте</Text>
                   <Text style={styles.title}>{order.сustomer}</Text>
                   <Text style={styles.title}>{order.number}</Text>
+                  <Text style={styles.title}>{order.pay}</Text>
                   <Text style={styles.title}>{order.description}</Text>
               </View>
               <Button
