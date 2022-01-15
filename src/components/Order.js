@@ -1,48 +1,51 @@
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions} from 'react-native'
+import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from 'react-native'
+
 
 export const Order = ({ order, onOpen }) => {
 
-  const WIDTH = Dimensions.get('window').width/2
+  const WIDTH = Dimensions.get('window').width / 2
 
   if (order.empty) {
-    return <View style={[styles.item ,styles.itemInvisible]}></View>
+    return <View style={[styles.item, styles.itemInvisible]}></View>
   }
   return (
-    <TouchableOpacity style={styles.item} activeOpacity = {0.7} onPress = {() => onOpen(order)}>
-      <View style={styles.itemWrap}>
 
+    <TouchableOpacity style={[styles.itemWrap]} activeOpacity={0.7} onPress={() => onOpen(order)}>
       {/* {new Date(order.date).toLocaleDateString()}  */}
-        {/* <ImageBackground style={styles.image} source={{ uri: order.img }}> */}
-        
-          <View style={styles.textBlock}>
-            <Text style={styles.title}>{order.name}</Text>
-          </View>
-          <View style={styles.textBlock}>
-            <Text style={styles.title}>{order.responsible}</Text>
-          </View>
 
-          <View style={[styles.textBlock, {position: 'absolute', bottom: 15 , left: 15}]}> 
-            <Text style={styles.title}> {order.status}</Text>
-          </View>
-        {/* </ImageBackground> */}
+      <View style={[styles.item, styles.shadowProp]}>
+        <View style={styles.textBlock}>
+          <Text style={styles.title}>{order.name}</Text>
+        </View>
+        <View style={styles.textBlock}>
+          <Text style={styles.title}>{order.responsible}</Text>
+        </View>
+
+        <View style={[styles.textBlock, { position: 'absolute', bottom: 15, left: 15 }]}>
+          <Text style={styles.title}> {order.status}</Text>
+        </View>
+
       </View>
+      {/* </ImageBackground> */}
+      {/* </View> */}
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
+
+
   item: {
-    marginBottom: 15,
-    overflow: 'hidden',
-    flex: 1,
-   
-    height: 215,
+    backgroundColor: "white",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'grey',
-    margin: 7,
+    height: 215,
+    shadowColor: "#000",
+    padding: 15,
+    flex: 1,
+
   },
+
   itemInvisible: {
     backgroundColor: 'transparent',
     borderWidth: 0,
@@ -58,10 +61,20 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#222222',
-    fontFamily: 'open-regular'
+    fontFamily: 'open-regular',
   },
-  textBlock: {
 
-  }
+  shadowProp: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  },
+
 
 })

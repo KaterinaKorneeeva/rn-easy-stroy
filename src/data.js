@@ -12,7 +12,9 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: true,
     status: 'in work',
-    description :  'Сделать быстро и качественно!'
+    description :  'Сделать быстро и качественно!',
+    balance: '0',
+    pay: 'cash'
   },
   {
     id: '2',
@@ -24,7 +26,9 @@ export const DATA = [
     text: 'Фитнес центр «Силушка» 245 м ',
     date: new Date().toJSON(),
     booked: true,
-    status: 'completed'
+    status: 'completed',
+    balance: '0',
+    pay: 'cash'
   },
   {
     id: '3',
@@ -37,6 +41,7 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'completed',
+    balance: '0'
   },
   {
     id: '4',
@@ -49,6 +54,7 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'awaiting',
+    balance: '0'
   },
   {
     id: '5',
@@ -61,5 +67,6 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'awaiting',
+    balance: '500000000'
   }
 ]

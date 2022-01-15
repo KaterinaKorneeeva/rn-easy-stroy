@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native'
 import { Order } from '../components/Order'
 import { THEME } from '../theme'
@@ -19,9 +19,9 @@ export const OrderList = ({ data, onOpen }) => {
 
   const [flexDirection, setflexDirection] = useState("column");
 
-  const setSelectedValue= {setflexDirection}
-  const selectedValue={flexDirection}
-  const values=["in work", "completed", "awaiting"]
+  const setSelectedValue = { setflexDirection }
+  const selectedValue = { flexDirection }
+  const values = ["in work", "completed", "awaiting"]
 
   return (
     <View style={styles.wrapper}>
@@ -47,15 +47,12 @@ export const OrderList = ({ data, onOpen }) => {
           </TouchableOpacity>
         ))}
       </View>
-
       <FlatList
         numColumns={numColumns}
         data={formData(data, numColumns)}
+        contentContainerStyle={{ justifyContent: 'center' }}
         keyExtractor={order => order.id.toString()}
         renderItem={({ item }) => <Order order={item} onOpen={onOpen} />}
-        // contentContainerStyle={{
-        
-        // }}
       />
     </View>
   )
