@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { BuildingIcon } from '../../assets/icons/iconsBottomBar/BuildingIcon';
 import { CompanionsIcon } from '../../assets/icons/iconsBottomBar/CompanionsIcon';
-import { THEME } from '../theme';
+import { COLORS } from '../theme';
 
 const { width } = Dimensions.get('screen');
 
@@ -51,12 +51,12 @@ const TabBar = ({ state, descriptors, navigation }) => {
             >
               {label === 'Объекты'
                 ? <BuildingIcon
-                  color={THEME.WHITE}
+                  color={COLORS.WHITE}
                   opacity={isFocused ? '1' : '0.5'}
                 />
                 :
                 <CompanionsIcon
-                  color={THEME.WHITE}
+                  color={COLORS.WHITE}
                   opacity={isFocused ? '1' : '0.5'}
                 />
               }
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
 
-    backgroundColor: THEME.MAIN_COLOR,
+    backgroundColor: COLORS.BLUE,
     width: 194,
     height: 80,
     borderRadius: 20,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native'
 import { Order } from '../components/Order'
-import { THEME } from '../theme'
+import { COLORS } from '../theme'
 
 export const OrderList = ({ data, onOpen }) => {
   const numColumns = 2
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: THEME.LIGHT_GREY,
+    backgroundColor: COLORS.LIGHT_GREY,
     alignSelf: "flex-start",
     marginHorizontal: "1%",
     marginBottom: 6,

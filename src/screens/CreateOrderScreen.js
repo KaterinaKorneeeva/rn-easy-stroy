@@ -12,7 +12,7 @@ import {
     Platform,
     Keyboard, // для закрытия клавиатуры
 } from 'react-native'
-import { THEME } from '../theme'
+import { COLORS } from '../theme'
 import { addOrder } from '../store/actions/order'
 import { PhotoPicker } from '../components/PhotoPicker'
 
@@ -163,11 +163,11 @@ export const CreateOrderScreen = ({ navigation }) => {
                                     borderLeftColor: 'transparent',
                                     borderBottomWidth: 1,
                                     borderStyle: 'solid',
-                                    borderBottomColor: THEME.GREY,
+                                    borderBottomColor: COLORS.GREY,
 
                                     // paddingTop: 40,
                                     // paddingBottom: 10,
-                                    color: THEME.GREY,
+                                    color: COLORS.GREY,
                                     fontSize: 16,
 
                                 },
@@ -205,11 +205,11 @@ export const CreateOrderScreen = ({ navigation }) => {
                                     borderLeftColor: 'transparent',
                                     borderBottomWidth: 1,
                                     borderStyle: 'solid',
-                                    borderBottomColor: THEME.GREY,
+                                    borderBottomColor: COLORS.GREY,
 
                                     // paddingTop: 40,
                                     // paddingBottom: 10,
-                                    color: THEME.GREY,
+                                    color: COLORS.GREY,
                                     fontSize: 16,
 
                                 },
@@ -236,7 +236,7 @@ export const CreateOrderScreen = ({ navigation }) => {
 
                     <Button
                         title='Сохранить'
-                        color={THEME.MAIN_COLOR}
+                        color={COLORS.MAIN_COLOR}
                         onPress={saveHandler}
                         disabled={!name}
                     />
@@ -259,11 +259,11 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1,
         borderStyle: 'solid',
-        borderBottomColor: THEME.GREY,
+        borderBottomColor: COLORS.GREY,
 
         paddingTop: 40,
         paddingBottom: 10,
-        color: THEME.GREY,
+        color: COLORS.GREY,
         fontSize: 16,
     },
     inputHalf: {

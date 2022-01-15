@@ -11,7 +11,7 @@ import { SellersListScreen } from '../screens/SellersListScreen';
 import { CreateSpendingScreen } from '../screens/CreateSpendingScreen';
 import { CreateDepositScreen } from '../screens/CreateDepositScreen';
 import { HistoryScreen } from '../screens/HistoryScreen';
-import {THEME} from '../theme';
+import { COLORS } from '../theme';
 
 import { BuildingIcon } from '../../assets/icons/iconsBottomBar/BuildingIcon';
 import { CompanionsIcon } from '../../assets/icons/iconsBottomBar/CompanionsIcon';
@@ -132,9 +132,9 @@ export default function AppNavigation() {
             initialRouteName="MainScreen"
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: Platform.OS === 'android' ? THEME.MAIN_COLOR : THEME.WHITE
+                    backgroundColor: Platform.OS === 'android' ? COLORS.BLUE : COLORS.WHITE
                 },
-                headerTintColor: Platform.OS === 'android' ? THEME.WHITE : THEME.MAIN_COLOR, 
+                headerTintColor: Platform.OS === 'android' ? COLORS.WHITE : COLORS.BLUE, 
                 headerShown: true, // можно менять false
                 gestureEnabled: false,
             }}
@@ -195,7 +195,7 @@ export default function AppNavigation() {
         justifyContent: 'space-between',
         backgroundColor: '#fff',
         marginTop: 10,
-        backgroundColor: THEME.MAIN_COLOR,
+        backgroundColor: COLORS.BLUE,
         borderRadius: 20,
     }
   })
