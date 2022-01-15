@@ -125,7 +125,7 @@ export const CreateOrderScreen = ({ navigation }) => {
                         />
 
                         <View style={[styles.input, { width: '50%', marginTop: 40, position: 'relative' }]}>
-                            {pay !== '' && <Text style={styles.label}>{pay}</Text>}
+                            {pay !== '' && <Text style={styles.label}>Вид оплаты</Text>}
                             <RNPickerSelect
                                 onValueChange={setPay}
                                 value={pay}
@@ -209,5 +209,15 @@ const styles = StyleSheet.create({
         ...FONTS.body2,
         position: 'absolute',
         top: 0
-    }
+    },
+    input: {
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+        borderBottomColor: COLORS.GREY,
+
+        paddingTop: 40,
+        paddingBottom: 10,
+        color: COLORS.GREY,
+        fontSize: 16,
+    },
 })
