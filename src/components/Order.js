@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from 'react-native'
-
+import { COLORS, FONTS } from '../theme'
 
 export const Order = ({ order, onOpen }) => {
 
-  const WIDTH = Dimensions.get('window').width / 2
+  // const WIDTH = Dimensions.get('window').width / 2
 
   if (order.empty) {
     return <View style={[styles.item, styles.itemInvisible]}></View>
@@ -13,29 +13,19 @@ export const Order = ({ order, onOpen }) => {
 
     <TouchableOpacity style={[styles.itemWrap]} activeOpacity={0.7} onPress={() => onOpen(order)}>
       {/* {new Date(order.date).toLocaleDateString()}  */}
-
       <View style={[styles.item, styles.shadowProp]}>
-        <View style={styles.textBlock}>
-          <Text style={styles.title}>{order.name}</Text>
-        </View>
-        <View style={styles.textBlock}>
-          <Text style={styles.title}>{order.responsible}</Text>
-        </View>
-
-        <View style={[styles.textBlock, { position: 'absolute', bottom: 15, left: 15 }]}>
-          <Text style={styles.title}> {order.status}</Text>
-        </View>
-
+        <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{order.name}</Text>
+        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{order.responsible}</Text>
+        <Text style={{ position: 'absolute', bottom: 15, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
+          {order.status}
+        </Text>
       </View>
       {/* </ImageBackground> */}
-      {/* </View> */}
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-
-
   item: {
     backgroundColor: "white",
     borderRadius: 10,
@@ -43,7 +33,6 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     padding: 15,
     flex: 1,
-
   },
 
   itemInvisible: {
@@ -59,13 +48,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     flex: 1
   },
-  title: {
-    color: '#222222',
-    fontFamily: 'open-regular',
-  },
 
   shadowProp: {
-    shadowColor: "#000",
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
