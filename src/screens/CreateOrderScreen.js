@@ -4,7 +4,6 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
     Image,
     Button,
     ScrollView,
@@ -12,14 +11,14 @@ import {
     Platform,
     Keyboard, // для закрытия клавиатуры
 } from 'react-native'
-import { COLORS } from '../theme'
-import { addOrder } from '../store/actions/order'
 import { PhotoPicker } from '../components/PhotoPicker'
-
+import { AppDatePicker } from '../components/ui/AppDatePicker'
+import { AppTextInput } from '../components/ui/AppTextInput'
+import { COLORS, FONTS } from '../theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import DatePicker from 'react-native-datepicker'
-
 import RNPickerSelect from 'react-native-picker-select';
+
+import { addOrder } from '../store/actions/order'
 
 export const CreateOrderScreen = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -33,8 +32,6 @@ export const CreateOrderScreen = ({ navigation }) => {
     const [dateStart, setDateStart] = useState('')
     const [dateFinish, setDateFinish] = useState('')
     const [pay, setPay] = useState('')
-    
-
 
     const imgRef = useRef
 
@@ -42,7 +39,6 @@ export const CreateOrderScreen = ({ navigation }) => {
         imgRef.current = uri
     }
     const saveHandler = () => {
-        console.log('pay',pay)
         const order = {
             date: new Date().toJSON(),
             name: name,
@@ -59,191 +55,132 @@ export const CreateOrderScreen = ({ navigation }) => {
 
             img: imgRef.current,
         }
+
         dispatch(addOrder(order))
         navigation.navigate('Объекты')
     }
 
     return (
-
         <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
             contentContainerStyle={styles.container}
         >
 
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-
-
                 <View style={styles.inner}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Название объекта"
-                        value={name}
-                        onChangeText={setName}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Адрес объекта "
-                        value={address}
-                        onChangeText={setAddress}
-                        dataDetectorTypes='address'
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Имя заказчика"
-                        value={сustomer}
-                        onChangeText={setСustomer}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Телефон заказчика"
-                        value={phone}
-                        onChangeText={setPhone}
-                        keyboardType="numeric"
-                        dataDetectorTypes={['phoneNumber']}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Площадь объекта"
-                        value={floorArea}
-                        onChangeText={setFloorArea}
-                        keyboardType="numeric"
-                    />
+                    <View style={styles.inputContainer}>
+                        {name !== '' && <Text style={styles.label}>Название объекта</Text>}
+                        <AppTextInput
+                            placeholder="Название объекта"
+                            value={name}
+                            inputChange={setName}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        {address !== '' && <Text style={styles.label}>Адрес объекта</Text>}
+                        <AppTextInput
+                            placeholder="Адрес объекта"
+                            value={address}
+                            inputChange={setAddress}
+                            dataDetectorTypes='address'
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        {сustomer !== '' && <Text style={styles.label}>Имя заказчика</Text>}
+                        <AppTextInput
+                            placeholder="Имя заказчика"
+                            value={сustomer}
+                            inputChange={setСustomer}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        {phone !== '' && <Text style={styles.label}>Телефон заказчика</Text>}
 
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                            style={[styles.input, styles.inputHalf]}
-                            placeholder="Сумма ремонта"
-                            value={price}
-                            onChangeText={setPrice}
+                        <AppTextInput
+                            placeholder="Телефон заказчика"
+                            value={phone}
+                            inputChange={setPhone}
+                            keyboardType="numeric"
+                            dataDetectorTypes={['phoneNumber']}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        {floorArea !== '' && <Text style={styles.label}>Площадь объекта</Text>}
+                        <AppTextInput
+                            placeholder="Площадь объекта"
+                            value={floorArea}
+                            inputChange={setFloorArea}
                             keyboardType="numeric"
                         />
+                    </View>
 
-                        <View style={[styles.input, {width:'50%', marginTop: 40, position:'relative'}]}>
-                            <Text style={{position:'absolute', top: 0}}>Вид оплаты</Text>
+                    <View style={styles.inputWrapper}>
+                        {price !== '' && <Text style={styles.label}>Сумма ремонта</Text>}
+                        <AppTextInput
+                            placeholder="Сумма ремонта"
+                            value={price}
+                            inputChange={setPrice}
+                            keyboardType="numeric"
+                            size='small'
+                        />
+
+                        <View style={[styles.input, { width: '50%', marginTop: 40, position: 'relative' }]}>
+                            {pay !== '' && <Text style={styles.label}>{pay}</Text>}
                             <RNPickerSelect
                                 onValueChange={setPay}
                                 value={pay}
                                 const placeholder={{
                                     label: 'Вид оплаты',
-                                    value: null,
-                                    color: '#9EA0A4',
+                                    // value: null,
+                                    color: COLORS.GREY,
                                 }}
                                 items={[
                                     { label: "cash", value: "Наличные" },
-                                    { label: "Non-cash", value: "безналичный расчет"},
+                                    { label: "Non-cash", value: "безналичный расчет" },
                                 ]}
                             />
                         </View>
 
+                        <View style={styles.inputContainer}>
+                            {dateStart !== '' && <Text style={styles.label}>Начало работ</Text>}
+                            <AppDatePicker
+                                value={dateStart}
+                                setDate={setDateStart}
+                                placeholder="Начало работ"
 
-                        <DatePicker
-                            style={{ width: '45%', paddingTop: 40, fontSize: 20 }}
-                            date={dateStart}
-                            // iconSource
-                            mode="date"
-                            placeholder="Начало работ"
-                            iconSource={require('../../assets/favicon.png')}
-                            format="YYYY-MM-DD"
-                            minDate="2021-01-01"
-                            maxDate="2050-01-01"
-                            confirmBtnText="ок"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    right: -10,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    // marginLeft: 36,
-                                    borderColor: 'red',
-                                    borderTopColor: 'transparent',
-                                    borderRightColor: 'transparent',
-                                    borderLeftColor: 'transparent',
-                                    borderBottomWidth: 1,
-                                    borderStyle: 'solid',
-                                    borderBottomColor: COLORS.GREY,
-
-                                    // paddingTop: 40,
-                                    // paddingBottom: 10,
-                                    color: COLORS.GREY,
-                                    fontSize: 16,
-
-                                },
-
-
-                                // ... You can check the source to find the other keys.
-                            }}
-                            onDateChange={setDateStart}
-                        />
-
-                        <DatePicker
-                            style={{ width: '45%', paddingTop: 40 }}
-                            date={dateFinish}
-                            // iconSource
-                            mode="date"
-                            placeholder="Сдача объекта"
-                            format="YYYY-MM-DD"
-                            minDate="2021-01-01"
-                            maxDate="2050-01-01"
-                            confirmBtnText="ок"
-                            iconSource={require('../../assets/favicon.png')}
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    right: -10,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    // marginLeft: 36,
-                                    borderColor: 'red',
-                                    borderTopColor: 'transparent',
-                                    borderRightColor: 'transparent',
-                                    borderLeftColor: 'transparent',
-                                    borderBottomWidth: 1,
-                                    borderStyle: 'solid',
-                                    borderBottomColor: COLORS.GREY,
-
-                                    // paddingTop: 40,
-                                    // paddingBottom: 10,
-                                    color: COLORS.GREY,
-                                    fontSize: 16,
-
-                                },
-
-
-                                // ... You can check the source to find the other keys.
-                            }}
-                            onDateChange={setDateFinish}
-                        />
-
-
-                      
+                            />
+                        </View>
+                        <View style={styles.inputContainer}>
+                            {dateFinish !== '' && <Text style={styles.label}>Сдача объекта</Text>}
+                            <AppDatePicker
+                                value={dateFinish}
+                                setDate={setDateFinish}
+                                placeholder="Сдача объекта"
+                            />
+                        </View>
                     </View>
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Описание"
-                        value={description}
-                        onChangeText={setDescription}
-                        multiline
-                    />
+                    <View style={styles.inputContainer}>
+                        {description !== '' && <Text style={styles.label}>Описание</Text>}
+                        <AppTextInput
+                            placeholder="Описание"
+                            value={description}
+                            inputChange={setDescription}
+                            dataDetectorTypes='phoneNumber'
+                            multiline
+                        />
+                    </View>
 
                     <PhotoPicker onPick={photoPickHandler} />
 
                     <Button
                         title='Сохранить'
-                        color={COLORS.MAIN_COLOR}
+                        color={COLORS.BLUE}
                         onPress={saveHandler}
                         disabled={!name}
                     />
                 </View>
-
             </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView >
     )
 }
 
@@ -256,44 +193,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-around',
     },
-    input: {
-        borderBottomWidth: 1,
-        borderStyle: 'solid',
-        borderBottomColor: COLORS.GREY,
-
-        paddingTop: 40,
-        paddingBottom: 10,
-        color: COLORS.GREY,
-        fontSize: 16,
-    },
-    inputHalf: {
-        width: '45%'
-    },
     inputWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
     },
 
-
-    inputIOS: {
-        fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 4,
-        color: 'black',
-        paddingRight: 30, // to ensure the text is never behind the icon
+    inputContainer: {
+        position: 'relative',
+        flexDirection: 'column'
     },
-    inputAndroid: {
-        fontSize: 16,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        borderWidth: 0.5,
-        borderColor: 'purple',
-        borderRadius: 8,
-        color: 'black',
-        paddingRight: 30, // to ensure the text is never behind the icon
-    },
+    label: {
+        marginBottom: 10,
+        color: COLORS.GREY,
+        ...FONTS.body2,
+        position: 'absolute',
+        top: 0
+    }
 })

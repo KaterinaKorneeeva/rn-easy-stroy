@@ -14,7 +14,9 @@ export const DATA = [
     status: 'in work',
     description :  'Сделать быстро и качественно!',
     balance: '0',
-    pay: 'cash'
+    pay: 'cash',
+    dateStart: '2021-01-01',
+    dateFinish: '2022-01-01'
   },
   {
     id: '2',
@@ -28,7 +30,9 @@ export const DATA = [
     booked: true,
     status: 'completed',
     balance: '0',
-    pay: 'cash'
+    pay: 'cash',
+    dateStart: '2021-01-01',
+    dateFinish: '2022-01-01'
   },
   {
     id: '3',
@@ -41,7 +45,9 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'completed',
-    balance: '0'
+    balance: '0',
+    dateStart: '2021-01-01',
+    dateFinish: '2022-01-01'
   },
   {
     id: '4',
@@ -54,7 +60,9 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'awaiting',
-    balance: '0'
+    balance: '0',
+    dateStart: '2021-01-01',
+    dateFinish: '2022-01-01'
   },
   {
     id: '5',
@@ -67,6 +75,8 @@ export const DATA = [
     date: new Date().toJSON(),
     booked: false,
     status: 'awaiting',
-    balance: '500000000'
+    balance: '500000000',
+    dateStart: '2021-01-01',
+    dateFinish: '2022-01-01'
   }
 ]

@@ -80,8 +80,8 @@ export const OrderScreen = ({ route, navigation }) => {
           <View style={{ flexDirection: 'row', flexWrap: "wrap" }}>
             <Text style={[styles.text, styles.box]}>{order.сustomer}</Text>
             <Text style={[styles.text, styles.box]}>{order.number}</Text>
-            <Text style={[styles.text, styles.box]}>Выход 20.09.2012</Text>
-            <Text style={[styles.text, styles.box]}>Сдача 20.09.2022</Text>
+            <Text style={[styles.text, styles.box]}>Выход {order.dateStart}</Text>
+            <Text style={[styles.text, styles.box]}>Сдача {order.dateFinish}</Text>
           </View>
         </View>
 
