@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
         paddingTop: 40,
         paddingBottom: 10,
-        color: COLORS.GREY,
+        color: COLORS.BLACK,
         fontSize: 16,
     },
     inputHalf: {
