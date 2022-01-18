@@ -25,13 +25,22 @@ export const addOrder = post => {
   }
 }
 
-export const updateOrder = (id, name) => {
+export const updateOrder = (id, name, address, сustomer, phone, floorArea, price, description, dateStart, dateFinish, pay) => {
 
   return {
     type: UPDATE_ORDER,
     payload : {
       id : id,
-      name : name
+      name : name,
+      address, 
+      сustomer, 
+      phone,
+      floorArea,
+      price,
+      description,
+      dateStart,
+      dateFinish,
+      pay
     }
   }
 }

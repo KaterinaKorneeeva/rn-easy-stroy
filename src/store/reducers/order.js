@@ -1,4 +1,4 @@
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER} from "../types"
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER } from "../types"
 
 const initialState = {
   allOrders: [],
@@ -28,8 +28,17 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         allOrders: state.allOrders.map(order => {
-          if (order.id ===  action.payload.id) {
-            order.name =   action.payload.name
+          if (order.id === action.payload.id) {
+            order.name = action.payload.name
+            order.address = action.payload.address
+            order.сustomer = action.payload.сustomer
+            order.phone = action.payload.phone
+            order.floorArea = action.payload.floorArea
+            order.price = action.payload.price
+            order.description = action.payload.description
+            order.dateStart = action.payload.dateStart
+            order.dateFinish = action.payload.dateFinish
+            order.pay = action.payload.pay
           }
           return order
         })
