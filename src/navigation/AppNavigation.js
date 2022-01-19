@@ -71,6 +71,7 @@ const Tab = createBottomTabNavigator();
             <Tab.Screen 
                 name="Объекты" 
                 component={MainScreen}
+                // component={CreateSpendingScreen}
                 
             />
             <Tab.Screen 
@@ -142,6 +143,7 @@ export default function AppNavigation() {
         <Stack.Screen 
             name="Объекты" 
             component={MainTabs} 
+            // component={CreateSpendingScreen}
             options={({ route, navigation }) => ({
                 headerTitle: getHeaderTitle(route),    
                 headerRight: () => 

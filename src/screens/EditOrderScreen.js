@@ -30,17 +30,17 @@ export const EditOrderScreen = ({ route, navigation }) => {
     const updateHandler = () => {
         dispatch(updateOrder(
             orderId,
-             name, 
-             address, 
-             сustomer, 
-             phone,
-             floorArea,
-             price,
-             description,
-             dateStart,
-             dateFinish,
-             pay
-             ))
+            name,
+            address,
+            сustomer,
+            phone,
+            floorArea,
+            price,
+            description,
+            dateStart,
+            dateFinish,
+            pay
+        ))
         navigation.navigate('OrderScreen', { orderId: orderId })
     }
 

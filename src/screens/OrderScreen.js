@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FONTS, COLORS } from '../theme'
 import TestBottomTab from '../navigation/TestBottomTab'
 import { removeOrders } from '../store/actions/order'
+import { numberWithSpaces } from '../../src/utils'
 
 
 export const OrderScreen = ({ route, navigation }) => {
@@ -45,6 +46,7 @@ export const OrderScreen = ({ route, navigation }) => {
   }
 
 
+  const sum = numberWithSpaces(order.balance);
   function renderTopInfoOrder() {
     return (
       <View style={{
@@ -56,7 +58,7 @@ export const OrderScreen = ({ route, navigation }) => {
       }}>
         <Text style={{ color: COLORS.BLACK, ...FONTS.title }}>{order.name}</Text>
         <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>{order.address}</Text>
-        <Text style={{ color: COLORS.BLACK, ...FONTS.largeTitle }}>{order.balance}</Text>
+        <Text style={{ color: COLORS.BLACK, ...FONTS.largeTitle }}>{sum}</Text>
         <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>Потрачено - {order.balance}</Text>
         <Text style={{ color: COLORS.GREEN, ...FONTS.body1 }}>{order.status}</Text>
       </View>
@@ -84,6 +86,8 @@ export const OrderScreen = ({ route, navigation }) => {
               <Text style={[styles.text, styles.box]}>{order.number}</Text>
               <Text style={[styles.text, styles.box]}>Выход {order.dateStart}</Text>
               <Text style={[styles.text, styles.box]}>Сдача {order.dateFinish}</Text>
+              <Text style={[styles.text]}>Примерный</Text>
+
             </View>
           </View>
 

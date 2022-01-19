@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import { Order } from '../components/Order'
 import { COLORS } from '../theme'
+import { statusesList } from '../../src/data'
+import { AppLabel } from '../components/ui/AppLabel'
 
 export const OrderList = ({ data, onOpen }) => {
   const numColumns = 2
@@ -17,36 +19,17 @@ export const OrderList = ({ data, onOpen }) => {
     return data
   }
 
-  const [flexDirection, setflexDirection] = useState("column");
-
-  const setSelectedValue = { setflexDirection }
-  const selectedValue = { flexDirection }
-  const values = ["in work", "completed", "awaiting"]
+  // установка статуса
+  const [label, setLabel] = useState('');
 
   return (
     <View style={styles.wrapper}>
 
-      <View style={styles.row}>
-        {values.map((value) => (
-          <TouchableOpacity
-            key={value}
-            // onPress={() => setSelectedValue(value)}
-            style={[
-              styles.button,
-              selectedValue === value && styles.selected,
-            ]}
-          >
-            <Text
-              style={[
-                styles.buttonLabel,
-                selectedValue === value && styles.selectedLabel,
-              ]}
-            >
-              {value}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <AppLabel
+        label={label}
+        setLabel={setLabel}
+        values={statusesList} />
+
       <FlatList
         numColumns={numColumns}
         data={formData(data, numColumns)}

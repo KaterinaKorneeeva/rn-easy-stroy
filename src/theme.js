@@ -30,6 +30,7 @@ export const SIZES = {
    // font sizes
   largeTitle: 32,
   title: 22,
+  smallTitle: 18,
   body1: 16,
   body2: 14,
 
@@ -40,6 +41,7 @@ export const SIZES = {
 export const FONTS = {
   largeTitle: { fontFamily: "open-bold", fontSize: SIZES.largeTitle, lineHeight: 40},
   title : { fontFamily: "open-bold", fontSize: SIZES.title, lineHeight: 28},
+  smallTitle : { fontFamily: "open-bold", fontSize: SIZES.title, lineHeight: 24},
   body1: { fontFamily: "open-regular", fontSize: SIZES.body1, lineHeight: 20 },
   body2: { fontFamily: "open-regular", fontSize: SIZES.body2, lineHeight: 20 },
 };
