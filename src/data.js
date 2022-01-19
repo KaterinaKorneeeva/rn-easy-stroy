@@ -11,7 +11,7 @@ export const DATA = [
     text: 'ЖК «Береговой» 250 м² 1',
     date: new Date().toJSON(),
     booked: true,
-    status: 'in work',
+    status: 1,
     description :  'Сделать быстро и качественно!',
     balance: '100000',
     pay: 'cash',
@@ -28,7 +28,7 @@ export const DATA = [
     text: 'Фитнес центр «Силушка» 245 м ',
     date: new Date().toJSON(),
     booked: true,
-    status: 'completed',
+    status: 1,
     balance: '0',
     pay: 'cash',
     dateStart: '2021-01-01',
@@ -44,7 +44,7 @@ export const DATA = [
     text: 'Детский сад  3',
     date: new Date().toJSON(),
     booked: false,
-    status: 'completed',
+    status: 2,
     balance: '0',
     dateStart: '2021-01-01',
     dateFinish: '2022-01-01'
@@ -59,7 +59,7 @@ export const DATA = [
     text: 'Детский сад  4',
     date: new Date().toJSON(),
     booked: false,
-    status: 'awaiting',
+    status: 1,
     balance: '0',
     dateStart: '2021-01-01',
     dateFinish: '2022-01-01'
@@ -74,7 +74,7 @@ export const DATA = [
     text: 'Бойцовский клуб 5',
     date: new Date().toJSON(),
     booked: false,
-    status: 'awaiting',
+    status: 1,
     balance: '4999654.44',
     dateStart: '2021-01-01',
     dateFinish: '2022-01-01'
@@ -132,15 +132,15 @@ export const sellersList= [
 
 export const statusesList= [
   {
-    id: '1',
+    id: 1,
     name: 'В ожидании',
   },
   {
-    id: '2',
+    id: 2,
     name: 'В работе',
   },
   {
-    id: '3',
+    id: 3,
     name: 'Сдан',
   },
 ]

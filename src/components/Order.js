@@ -1,10 +1,15 @@
 import React from 'react'
-import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { COLORS, FONTS } from '../theme'
+import { statusNameById } from '../../src/orders'
+import { statusesList } from '../../src/data'
 
 export const Order = ({ order, onOpen }) => {
 
   // const WIDTH = Dimensions.get('window').width / 2
+
+
+  const status = order.empty ?  '0' : statusNameById(statusesList, order.status)
 
   if (order.empty) {
     return <View style={[styles.item, styles.itemInvisible]}></View>
@@ -17,7 +22,7 @@ export const Order = ({ order, onOpen }) => {
         <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{order.name}</Text>
         <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{order.responsible}</Text>
         <Text style={{ position: 'absolute', bottom: 15, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
-          {order.status}
+          {status.name}
         </Text>
       </View>
       {/* </ImageBackground> */}

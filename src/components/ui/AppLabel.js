@@ -14,7 +14,7 @@ export const AppLabel = ({ values, label, setLabel }) => {
                         label === value.id && styles.selected,
                     ]}
                 >
-                    <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }} >
+                    <Text style={{color: label === value.id ? COLORS.WHITE: COLORS.BLACK, ...FONTS.body1}} >
                         {value.name}
                     </Text>
                 </TouchableOpacity>
