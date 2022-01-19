@@ -15,7 +15,8 @@ import { FONTS, COLORS } from '../theme'
 import TestBottomTab from '../navigation/TestBottomTab'
 import { removeOrders } from '../store/actions/order'
 import { numberWithSpaces } from '../../src/utils'
-
+import { statusesList } from '../../src/data'
+import { statusNameById } from '../../src/orders'
 
 export const OrderScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ export const OrderScreen = ({ route, navigation }) => {
   const order = useSelector(state =>
     state.order.allOrders.find(o => o.id === orderId)
   )
+  const status = order.empty ?  '0' : statusNameById(statusesList, order.status)
+
 
   const removeHandler = () => {
     Alert.alert(
@@ -60,7 +63,7 @@ export const OrderScreen = ({ route, navigation }) => {
         <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>{order.address}</Text>
         <Text style={{ color: COLORS.BLACK, ...FONTS.largeTitle }}>{sum}</Text>
         <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>Потрачено - {order.balance}</Text>
-        <Text style={{ color: COLORS.GREEN, ...FONTS.body1 }}>{order.status}</Text>
+        <Text style={{ color: COLORS.GREEN, ...FONTS.body1 }}> {status.name}</Text>
       </View>
 
     )
