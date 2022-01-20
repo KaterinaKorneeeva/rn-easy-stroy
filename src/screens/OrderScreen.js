@@ -24,7 +24,7 @@ export const OrderScreen = ({ route, navigation }) => {
   const order = useSelector(state =>
     state.order.allOrders.find(o => o.id === orderId)
   )
-  const status = order.empty ?  '0' : statusNameById(statusesList, order.status)
+  const status = order.empty ? '0' : statusNameById(statusesList, order.status)
 
 
   const removeHandler = () => {
@@ -49,22 +49,33 @@ export const OrderScreen = ({ route, navigation }) => {
   }
 
 
-  const sum = numberWithSpaces(order.balance);
+  const sum = numberWithSpaces(order.balance) + ' ₽';
+  const spendingSum = numberWithSpaces(order.balance) + ' ₽' ;
+  const responsible =  order.responsible !== '' ? order.responsible : 'Не назначен' 
+
   function renderTopInfoOrder() {
     return (
       <View style={{
         alignItems: "center",
         justifyContent: "center",
+        textAlign: 'center',
         marginTop: 50,
         marginBottom: 80,
         backgroundColor: COLORS.LIGHT_GREY,
+        paddingHorizontal: 40,
       }}>
-        <Text style={{ color: COLORS.BLACK, ...FONTS.title }}>{order.name}</Text>
-        <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>{order.address}</Text>
+        <Text style={{ color: COLORS.BLACK, ...FONTS.title, }}>{order.name} {order.floorArea}
+          {order.floorArea !== '' &&
+            <Text>м<Text style={{ textVerticalAlign: 'top', fontSize: 12 }}>2</Text></Text>
+          }
+        </Text>
+        <Text style={{ color: COLORS.GREY,  textAlign: 'center', ...FONTS.body1 }}>{order.address}</Text>
         <Text style={{ color: COLORS.BLACK, ...FONTS.largeTitle }}>{sum}</Text>
-        <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>Потрачено - {order.balance}</Text>
+        <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>Потрачено - {spendingSum}</Text>
         <Text style={{ color: COLORS.GREEN, ...FONTS.body1 }}> {status.name}</Text>
-      </View>
+        <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}> Ответственный - {responsible}</Text>
+        <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}> Вид оплаты - {order.pay}  </Text>
+      </View >
 
     )
   }
@@ -82,32 +93,20 @@ export const OrderScreen = ({ route, navigation }) => {
       }}>
         <ScrollView>
           <View style={styles.container}>
-
             <Text style={styles.label}>Об объекте</Text>
             <View style={{ flexDirection: 'row', flexWrap: "wrap" }}>
               <Text style={[styles.text, styles.box]}>{order.сustomer}</Text>
-              <Text style={[styles.text, styles.box]}>{order.number}</Text>
+              <Text style={[styles.text, styles.box]}>{order.phone}</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
               <Text style={[styles.text, styles.box]}>Выход {order.dateStart}</Text>
               <Text style={[styles.text, styles.box]}>Сдача {order.dateFinish}</Text>
-              <Text style={[styles.text]}>Примерный</Text>
-
             </View>
           </View>
-
-          <View style={styles.container}>
-            <Text style={styles.label}>Ответственный</Text>
-            <Text style={styles.text}>{order.responsible}</Text>
-          </View>
-
           <View style={styles.container}>
             <Text style={styles.label}>Описание</Text>
             <Text style={styles.text}>{order.description}</Text>
           </View>
-
-          {/* <View style={styles.container}> */}
-          <Text style={styles.label}>Вид оплаты</Text>
-          <Text style={styles.text}>{order.pay}</Text>
-          {/* </View> */}
         </ScrollView>
       </View>
     )

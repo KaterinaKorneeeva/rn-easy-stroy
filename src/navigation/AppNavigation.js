@@ -167,11 +167,11 @@ export default function AppNavigation() {
                 
                     title: route.params.postName ,
                     headerStyle: {
-                    backgroundColor: '#f4511e',
+                    backgroundColor: COLORS.LIGHT_GREY,
                 },
-                headerTintColor: '#fff',
+                headerTintColor: Platform.OS === 'android' ? COLORS.BLUE : COLORS.BLUE,
                 headerTitleStyle: {
-                    fontWeight: 'bold',
+                    // fontWeight: 'bold',
                 },
                 headerRight: () => 
                     <Button 

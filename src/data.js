@@ -4,7 +4,8 @@ export const DATA = [
     name: 'ЖК «Береговой» ',
     address: 'Новофилёвский пр., д. 3',
     сustomer: 'Дмитрий', 
-    number: '+79667890078',
+    phone: '+79667890078',
+    floorArea: '240',
     responsible: 'Петров Иван',
     img:
       'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
@@ -17,22 +18,29 @@ export const DATA = [
     pay: 'cash',
     dateStart: '2021-01-01',
     dateFinish: '2022-01-01'
+    
   },
   {
     id: '2',
     name: 'Фитнес центр',
-    address: 'столярный переулок',
+    address: 'г. Москва, ул. Красносельская, д. 5, стр. 9, кв. 675',
+    balance: '150000',
+
     responsible: 'Иванов Иван',
+    сustomer: 'Александр', 
+    phone: '+79667890078',
+    floorArea: '240',
     img:
       'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg',
     text: 'Фитнес центр «Силушка» 245 м ',
     date: new Date().toJSON(),
     booked: true,
     status: 1,
-    balance: '0',
+    
     pay: 'cash',
     dateStart: '2021-01-01',
-    dateFinish: '2022-01-01'
+    dateFinish: '2022-01-01',
+    description :  'Предложение действует до 30 августа Оформить кредит можно в приложении, без справок и визитов в банк.'
   },
   {
     id: '3',
