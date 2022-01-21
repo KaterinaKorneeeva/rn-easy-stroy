@@ -39,7 +39,7 @@ export const OrderScreen = ({ route, navigation }) => {
         {
           text: 'Удалить', style: 'destructive',
           onPress: () => {
-            navigation.navigate('Объекты')
+            navigation.navigate('MainScreen')
             dispatch(removeOrders(orderId))
           }
         }
@@ -66,7 +66,8 @@ export const OrderScreen = ({ route, navigation }) => {
       }}>
         <Text style={{ color: COLORS.BLACK, ...FONTS.title, }}>{order.name} {order.floorArea}
           {order.floorArea !== '' &&
-            <Text>м<Text style={{ textVerticalAlign: 'top', fontSize: 12 }}>2</Text></Text>
+            // <Text>м<Text style={{ textVerticalAlign: 'top', fontSize: 12 }}>2</Text></Text>
+            <Text>м<Text style={{ fontSize: 12 }}>2</Text></Text>
           }
         </Text>
         <Text style={{ color: COLORS.GREY,  textAlign: 'center', ...FONTS.body1 }}>{order.address}</Text>

@@ -52,12 +52,13 @@ export const CreateOrderScreen = ({ navigation }) => {
             description: description,
             pay: pay,
             responsible: 'Константин',
-
+            status: 1,
+            balance: '0',
             img: imgRef.current,
         }
 
         dispatch(addOrder(order))
-        navigation.navigate('Объекты')
+        navigation.navigate('MainScreen')
     }
 
     return (

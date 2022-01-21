@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 export const SellersListScreen = ({}) => {
     return (
         <View style={style.center}>
-            <Text> Справочники продавцов и тд </Text>
+            <Text> Справочники продавцов </Text>
         </View>
     )
 }
