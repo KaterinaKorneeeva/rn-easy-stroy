@@ -102,6 +102,7 @@ export const CreateSpendingScreen = ({ }) => {
                         inputChange={setSum}
                         keyboardType="numeric"
                     />
+                    {/* добавить календарь */}
                     <Button
                         title='Продолжить' // Сохранить и предлагаем сделать фото чека 
                         color={COLORS.BLUE}
