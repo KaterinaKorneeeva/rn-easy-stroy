@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity, Button } from 'react-native'
 import { COLORS, FONTS } from '../theme'
 import { DataTable } from 'react-native-paper';
 import { listExpenses, sellersList } from '../../src/data'
@@ -11,9 +11,51 @@ export const CreateSpendingScreen = ({ }) => {
     const [sum, setSum] = useState('')
     const [label, setLabel] = useState('');
 
+
+    const [step, setStep] = useState(1);
+    const [iShowSellers, setIShowSellers] = useState(false)
+    const [iShowDescription, setShowDescription] = useState(false);
+
+
+
+
+
+    const nextStepHandler = () => {
+        setStep(step + 1)
+        // setIShowSellers(current => !current)
+        // console.log('iShowSellers', iShowSellers)
+
+        // const order = {
+        //     date: new Date().toJSON(),
+        //     name: name,
+        //     address: address,
+        //     сustomer: сustomer,
+        //     phone: phone,
+        //     floorArea: floorArea,
+        //     price: price,
+        //     dateStart: dateStart,
+        //     dateFinish: dateFinish,
+        //     description: description,
+        //     pay: pay,
+        //     responsible: 'Константин',
+
+        //     img: imgRef.current,
+        // }
+
+        // dispatch(addOrder(order))
+        // navigation.navigate('Объекты')
+    }
+
+
+    const saveHandler = () => {
+        alert('Сделать фото чека?')
+        setSum('')
+        setStep(1)
+        
+    }
     return (
         <View style={styles.center}>
-            <Text>  Экран добавления расхода </Text>
+            <Text>Экран добавления расхода </Text>
             <View style={[styles.boxInfo]}>
                 <View style={[styles.item, styles.shadowProp]}>
                     <Text style={{ color: COLORS.BLACK, ...FONTS.body2 }}>расход</Text>
@@ -46,30 +88,64 @@ export const CreateSpendingScreen = ({ }) => {
                 </ScrollView>
             </View>
 
-            {/* Запись расхода */}
+            {/* Запись затрат */}
 
-            {/* ввод суммы */}
-            <View style={styles.inputContainer}>
-                {/* {sum !== '' && <Text style={styles.label}>Название объекта</Text>} */}
-                <AppTextInput
-                    placeholder="введите сумму"
-                    value={sum}
-                    inputChange={setSum}
-                    keyboardType="numeric"
-                />
-            </View>
 
-             {/* выбор продавца */}
-             {sum !== '' && 
-             
-            // 
-             
-             <AppLabel
-             label={label}
-             setLabel={setLabel}
-             values={sellersList} />
-             } 
-             
+            {/* {step === 2  && */}
+
+            {/* 1ый шаг  ввод суммы обязательное*/}
+            {step === 1 &&
+                <View style={styles.inputContainer}>
+                    <AppTextInput
+                        placeholder="введите сумму"
+                        value={sum}
+                        inputChange={setSum}
+                        keyboardType="numeric"
+                    />
+                    <Button
+                        title='Продолжить' // Сохранить и предлагаем сделать фото чека 
+                        color={COLORS.BLUE}
+                        onPress={nextStepHandler}
+                        disabled={!sum}
+                    />
+                </View>
+            }
+            
+            {/* 2ой шаг - выбор продавца обязательное */}
+            {step === 2 &&
+                <View style={styles.inputContainer}>
+                    <AppLabel
+                        label={label}
+                        setLabel={setLabel}
+                        values={sellersList} />
+                    <Button
+                        title='Продолжить' // Сохранить и предлагаем сделать фото чека 
+                        color={COLORS.BLUE}
+                        onPress={nextStepHandler}
+                        disabled={!sum}
+                    />
+                </View>
+            }
+            {/* 3й шаг - Комментарий необязательно*/}
+            {step === 3 &&
+                <View style={styles.inputContainer}>
+                    <AppTextInput
+                        placeholder="Комментарий "
+                        //  value={sum}
+                        //  inputChange={setSum}
+                        //  keyboardType="numeric"
+                        multiline
+                    />
+
+                    <Button
+                        title='Сохранить' // Сохранить и предлагаем сделать фото чека 
+                        color={COLORS.BLUE}
+                        onPress={saveHandler}
+                        // disabled={!sum}
+                    />
+                </View>
+            }
+
         </View>
     )
 }
@@ -86,7 +162,6 @@ const styles = StyleSheet.create({
     },
 
     boxInfo: {
-        borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
