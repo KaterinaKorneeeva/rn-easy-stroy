@@ -2,9 +2,10 @@ import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { Platform, Button, StyleSheet, View } from 'react-native'
+import { Platform, Button } from 'react-native'
 import { MainScreen } from '../screens/MainScreen';
 import { CreateOrderScreen } from '../screens/CreateOrderScreen';
+import { CreateSellerScreen } from '../screens/CreateSellerScreen';
 import { EditOrderScreen } from '../screens/EditOrderScreen';
 import { OrderScreen } from '../screens/OrderScreen';
 import { SellersListScreen } from '../screens/SellersListScreen';
@@ -59,7 +60,7 @@ function getHeaderIcon({ navigation, route }) {
                     <Item
                         title='Add Object'
                         iconName='add-circle-outline'
-                        onPress={() => navigation.navigate('CreateOrderScreen')}
+                        onPress={() => navigation.navigate('CreateSellerScreen')}
                     />
                 </HeaderButtons>
             )
@@ -71,7 +72,8 @@ function getHeaderIcon({ navigation, route }) {
 const Tab = createBottomTabNavigator();
 function MainTabs() {
     return (
-        <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+        <Tab.Navigator 
+        tabBar={props => <TabBar {...props} />}>
             <Tab.Screen
                 name="Объекты"
                 component={MainScreen}
@@ -80,8 +82,7 @@ function MainTabs() {
             />
             <Tab.Screen
                 name="Список"
-                // component={SellersListScreen}
-                component={CreateSpendingScreen}
+                component={SellersListScreen}
             />
         </Tab.Navigator>
     );
@@ -112,6 +113,7 @@ function OrderTabs() {
                 }}
             />
             <Tab.Screen
+             mode='modal'
                 name="История"
                 component={HistoryScreen}
                 options={{
@@ -161,6 +163,7 @@ export default function AppNavigation() {
 
                     })}
                 />
+                {/* экран объекта */}
                 <Stack.Screen
                     name="OrderScreen"
                     component={OrderScreen}
@@ -185,6 +188,16 @@ export default function AppNavigation() {
                 />
                 <Stack.Screen name="EditOrderScreen" component={EditOrderScreen} />
                 <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
+
+
+                <Stack.Screen name="CreateSellerScreen" component={CreateSellerScreen} />
+                
+                {/* нужно ли здесь прописывать все экраны которые есть в приложении??? */}
+                <Stack.Screen name="CreateSpendingScreen" component={CreateSpendingScreen} />
+                <Stack.Screen name="CreateDepositScreen" component={CreateDepositScreen} />
+                <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+
+                
             </Stack.Navigator>
         </NavigationContainer>
     );

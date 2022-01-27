@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTS } from '../../theme'
 
-export const AppLabel = ({ values, label, setLabel }) => {
+export const AppLabel = ({ values, label, setLabel}) => {
     return (
         <View style={styles.row}>
             {values.map((value) => (

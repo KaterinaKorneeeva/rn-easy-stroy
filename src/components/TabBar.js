@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text, Image } from 'react-native';
 import { BuildingIcon } from '../../assets/icons/iconsBottomBar/BuildingIcon';
 import { CompanionsIcon } from '../../assets/icons/iconsBottomBar/CompanionsIcon';
 import { COLORS } from '../theme';
+import SellersIcon  from  '../../assets/icons/iconsBottomBar/SellersIcon.svg';
+
 
 const { width } = Dimensions.get('screen');
 
@@ -52,13 +54,15 @@ const TabBar = ({ state, descriptors, navigation }) => {
               {label === 'Объекты'
                 ? <BuildingIcon
                   color={COLORS.WHITE}
-                  opacity={isFocused ? '1' : '0.5'}
+                  opacity={isFocused ? 1 : 0.5}
                 />
                 :
                 <CompanionsIcon
                   color={COLORS.WHITE}
                   opacity={isFocused ? '1' : '0.5'}
                 />
+
+                // <Image source={{ uri: SellersIcon }}  />
               }
               <Text style={{ color: '#fff', opacity: isFocused ? '1' : '0.5' }}>
                 {label}

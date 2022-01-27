@@ -11,13 +11,16 @@ const Tab = createBottomTabNavigator();
 
 const TestBottomTab = () => (
  <Tab.Navigator
-        screenOptions={({ route }) => ({
+        // screenOptions={({ route }) => ({
           // alert(1);
-        })}
-        >
+        // })}
+    
+        // screenOptions={{ presentation: 'transparentModal' }}
+        > 
+        
     <Tab.Screen
-        name="Расход333"
-        component={CreateDepositScreen}
+        name="Расход"
+        component={CreateSpendingScreen}
         options={{
         tabBarLabel: 'Расход',
         tabBarIcon: () => {
@@ -27,8 +30,7 @@ const TestBottomTab = () => (
     />
     <Tab.Screen
         name="Приход"
-        
-        component={CreateSpendingScreen}
+        component={CreateDepositScreen}
         options={{
             tabBarLabel: 'Приход',
             tabBarIcon: () => {

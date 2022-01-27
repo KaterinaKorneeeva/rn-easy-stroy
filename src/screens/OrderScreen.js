@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   SafeAreaView,
+  TouchableOpacity
 } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -50,8 +51,8 @@ export const OrderScreen = ({ route, navigation }) => {
 
 
   const sum = numberWithSpaces(order.balance) + ' ₽';
-  const spendingSum = numberWithSpaces(order.balance) + ' ₽' ;
-  const responsible =  order.responsible !== '' ? order.responsible : 'Не назначен' 
+  const spendingSum = numberWithSpaces(order.balance) + ' ₽';
+  const responsible = order.responsible !== '' ? order.responsible : 'Не назначен'
 
   function renderTopInfoOrder() {
     return (
@@ -64,13 +65,30 @@ export const OrderScreen = ({ route, navigation }) => {
         backgroundColor: COLORS.LIGHT_GREY,
         paddingHorizontal: 40,
       }}>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            title="расход"
+            onPress={() => navigation.navigate('CreateSpendingScreen')}
+          />
+          <Button
+            title="Приход"
+            onPress={() => navigation.navigate('CreateDepositScreen')}
+          />
+          <Button
+            title="История"
+            onPress={() => navigation.navigate('HistoryScreen')}
+          />
+        </View>
+
+
         <Text style={{ color: COLORS.BLACK, ...FONTS.title, }}>{order.name} {order.floorArea}
           {order.floorArea !== '' &&
             // <Text>м<Text style={{ textVerticalAlign: 'top', fontSize: 12 }}>2</Text></Text>
             <Text>м<Text style={{ fontSize: 12 }}>2</Text></Text>
           }
         </Text>
-        <Text style={{ color: COLORS.GREY,  textAlign: 'center', ...FONTS.body1 }}>{order.address}</Text>
+        <Text style={{ color: COLORS.GREY, textAlign: 'center', ...FONTS.body1 }}>{order.address}</Text>
         <Text style={{ color: COLORS.BLACK, ...FONTS.largeTitle }}>{sum}</Text>
         <Text style={{ color: COLORS.GREY, ...FONTS.body1 }}>Потрачено - {spendingSum}</Text>
         <Text style={{ color: COLORS.GREEN, ...FONTS.body1 }}> {status.name}</Text>
@@ -92,23 +110,21 @@ export const OrderScreen = ({ route, navigation }) => {
         paddingTop: 40,
         flex: 1,
       }}>
-        <ScrollView>
-          <View style={styles.container}>
-            <Text style={styles.label}>Об объекте</Text>
-            <View style={{ flexDirection: 'row', flexWrap: "wrap" }}>
-              <Text style={[styles.text, styles.box]}>{order.сustomer}</Text>
-              <Text style={[styles.text, styles.box]}>{order.phone}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={[styles.text, styles.box]}>Выход {order.dateStart}</Text>
-              <Text style={[styles.text, styles.box]}>Сдача {order.dateFinish}</Text>
-            </View>
+        <View style={styles.container}>
+          <Text style={styles.label}>Об объекте</Text>
+          <View style={{ flexDirection: 'row', flexWrap: "wrap" }}>
+            <Text style={[styles.text, styles.box]}>{order.сustomer}</Text>
+            <Text style={[styles.text, styles.box]}>{order.phone}</Text>
           </View>
-          <View style={styles.container}>
-            <Text style={styles.label}>Описание</Text>
-            <Text style={styles.text}>{order.description}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={[styles.text, styles.box]}>Выход {order.dateStart}</Text>
+            <Text style={[styles.text, styles.box]}>Сдача {order.dateFinish}</Text>
           </View>
-        </ScrollView>
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.label}>Описание</Text>
+          <Text style={styles.text}>{order.description}</Text>
+        </View>
       </View>
     )
   }
@@ -117,7 +133,7 @@ export const OrderScreen = ({ route, navigation }) => {
     return null
   }
   return (
-    <View style={styles.wrapper}>
+    <ScrollView style={styles.wrapper}>
 
       {/* главная информация об объекте */}
       {renderTopInfoOrder()}
@@ -132,9 +148,9 @@ export const OrderScreen = ({ route, navigation }) => {
         /> */}
 
       {/* нижнее меню */}
-      <TestBottomTab />
+      {/* <TestBottomTab /> */}
 
-    </View>
+    </ScrollView>
   )
 }
 

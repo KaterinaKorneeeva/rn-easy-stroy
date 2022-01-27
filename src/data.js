@@ -127,14 +127,20 @@ export const sellersList= [
   {
     id: '1',
     name: 'Леруа',
+    phone: '',
+    description: 'Магазин Леруа',
   },
   {
     id: '2',
     name: 'Икеа',
+    phone: '',
+    description: '',
   },
   {
     id: '3',
     name: 'OBI',
+    phone: '',
+    description: '',
   },
 ]
 
