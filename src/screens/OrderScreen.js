@@ -8,16 +8,28 @@ import {
   ScrollView,
   Alert,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { FONTS, COLORS } from '../theme'
 import TestBottomTab from '../navigation/TestBottomTab'
+
+import { ArrowUpIcon } from '../../assets/icons/iconsBottomBar/ArrowUpIcon';
+import { ArrowDownIcon } from '../../assets/icons/iconsBottomBar/ArrowDownIcon';
+import { HistoryIcon } from '../../assets/icons/iconsBottomBar/HistoryIcon';
+
 import { removeOrders } from '../store/actions/order'
 import { numberWithSpaces } from '../../src/utils'
 import { statusesList } from '../../src/data'
 import { statusNameById } from '../../src/orders'
+import { CommonActions } from '@react-navigation/native';
+
+
+const { width } = Dimensions.get('screen');
+
+
 
 export const OrderScreen = ({ route, navigation }) => {
   const dispatch = useDispatch()
@@ -27,6 +39,25 @@ export const OrderScreen = ({ route, navigation }) => {
   )
   const status = order.empty ? '0' : statusNameById(statusesList, order.status)
 
+
+  const openOtherScreensHandler = (type) => {
+    function switchScreen(type) {
+      switch (type) {
+        case "spending":
+          return 'CreateSpendingScreen'
+        case "deposit":
+          return 'CreateDepositScreen'
+        default:
+          return 'HistoryScreen'
+      }
+    }
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: switchScreen(type),
+        params: { orderId: orderId },
+      })
+    );
+  }
 
   const removeHandler = () => {
     Alert.alert(
@@ -64,23 +95,8 @@ export const OrderScreen = ({ route, navigation }) => {
         marginBottom: 80,
         backgroundColor: COLORS.LIGHT_GREY,
         paddingHorizontal: 40,
+        position: 'relative'
       }}>
-
-        <View style={{ flexDirection: 'row' }}>
-          <Button
-            title="расход"
-            onPress={() => navigation.navigate('CreateSpendingScreen')}
-          />
-          <Button
-            title="Приход"
-            onPress={() => navigation.navigate('CreateDepositScreen')}
-          />
-          <Button
-            title="История"
-            onPress={() => navigation.navigate('HistoryScreen')}
-          />
-        </View>
-
 
         <Text style={{ color: COLORS.BLACK, ...FONTS.title, }}>{order.name} {order.floorArea}
           {order.floorArea !== '' &&
@@ -103,6 +119,7 @@ export const OrderScreen = ({ route, navigation }) => {
       <View style={{
         alignItems: "left",
         marginTop: 40,
+        paddingBottom: 180,
         backgroundColor: COLORS.WHITE,
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
@@ -124,6 +141,10 @@ export const OrderScreen = ({ route, navigation }) => {
         <View style={styles.container}>
           <Text style={styles.label}>Описание</Text>
           <Text style={styles.text}>{order.description}</Text>
+
+
+
+
         </View>
       </View>
     )
@@ -133,24 +154,55 @@ export const OrderScreen = ({ route, navigation }) => {
     return null
   }
   return (
-    <ScrollView style={styles.wrapper}>
+    <View style={styles.wrapper}>
+      <ScrollView>
 
-      {/* главная информация об объекте */}
-      {renderTopInfoOrder()}
-      {/* описание объекта */}
-      {renderBottomInfoOrder()}
 
-      {/* <Image source={{ uri: order.img }} style={styles.image} /> */}
-      {/* <Button
+
+        {/* главная информация об объекте */}
+        {renderTopInfoOrder()}
+        {/* описание объекта */}
+        {renderBottomInfoOrder()}
+
+        {/* <Image source={{ uri: order.img }} style={styles.image} /> */}
+        {/* <Button
           title='Удалить'
           color={COLORS.BLUE}
           onPress={removeHandler}
         /> */}
 
+        {/* нижнее меню */}
+        {/* <TestBottomTab /> */}
+      </ScrollView>
       {/* нижнее меню */}
-      {/* <TestBottomTab /> */}
-
-    </ScrollView>
+      <View style={styles.blockBottomBtn}>
+        <View style={styles.containerBottomBtn}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            style={styles.containerTab}
+            onPress={() => openOtherScreensHandler('spending')}>
+            <ArrowUpIcon color={'white'} />
+            <Text>Расход</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+             accessibilityRole="button"
+            style={styles.containerTab}
+            onPress={() => openOtherScreensHandler('deposit')}>
+            <ArrowDownIcon color={'white'} />
+            <Text>Приход</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            ActiveOpacity={1}
+           accessibilityRole="button"
+            style={styles.containerTab}
+            onPress={() => openOtherScreensHandler('history')}>
+            <HistoryIcon color={'white'}   opacity='0.5' />
+            <Text style={{ color: '#fff', opacity: '0.5' }}>История</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   )
 }
 
@@ -159,6 +211,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: COLORS.LIGHT_GREY,
+    marginTop: 50,
+
+
 
   },
   image: {
@@ -188,6 +243,36 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: COLORS.GREY,
     ...FONTS.body2
-  }
+  },
+
+// нижнее меню
+  blockBottomBtn: {
+    position: 'absolute',
+    bottom: 40,
+    width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity:0.7,
+  },
+  containerBottomBtn: {
+
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    backgroundColor: COLORS.BLUE,
+    // width: 194,
+    height: 80,
+    borderRadius: 20,
+    elevation: 2,
+    padding: 10,
+  },
+  containerTab: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: 80
+  },
+
+
 
 })

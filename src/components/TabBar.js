@@ -61,6 +61,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
                   color={COLORS.WHITE}
                   opacity={isFocused ? '1' : '0.5'}
                 />
+                // <SellersIcon/>
 
                 // <Image source={{ uri: SellersIcon }}  />
               }

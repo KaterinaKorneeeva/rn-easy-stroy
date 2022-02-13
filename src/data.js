@@ -90,40 +90,45 @@ export const DATA = [
 ]
 
 
-export const listExpenses= [
+export const LIST_EXPENSES= [
   {
     id: '1',
-    name: 'Краска и все для покраски стен',
+    expenseName: '11Краска и все для покраски стен',
     sum: '2000',
-    date: '2021-01-01',
+    date:  new Date().toDateString().slice(4, 10),
+    seller_id: '1',
   },
   {
     id: '2',
-    name: 'Плинтуса и дверные откосы',
+    expenseName: 'Плинтуса и дверные откосы',
     sum: '2000',
-    date: '2021-01-01',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '2',
   },
   {
     id: '3',
-    name: 'Краска и все для покраски стен',
+    expenseName: 'Краска и все для покраски стен',
     sum: '2000',
-    date: '2021-01-01',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '3',
   },
   {
     id: '4',
-    name: 'Плинтуса и дверные откосы',
+    expenseName: 'Плинтуса и дверные откосы',
     sum: '2000',
-    date: '2021-01-01',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '1',
   },
   {
     id: '5',
-    name: 'Плинтуса и дверные откосы',
+    expenseName: 'Плинтуса и дверные откосы Плинтуса и дверные откосы',
     sum: '2000',
-    date: '2021-01-01',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '2',
   }
 ]
 
-export const sellersList= [
+export const LIST_SELLERS= [
   {
     id: '1',
     name: 'Леруа',

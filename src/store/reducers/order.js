@@ -1,32 +1,31 @@
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER } from "../types"
+import { extend } from "../../utils";
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS } from "../types"
+
 
 const initialState = {
   allOrders: [],
+  allSellers: [],
+  allExpenses: [],
   allSellers: []
 }
 
 export const orderReducer = (state = initialState, action) => {
 
-
   switch (action.type) {
     case LOAD_ORDERS:
-      return {
-        ...state,
+      return extend(state, {
         allOrders: action.payload,
-      }
+      });
     case REMOVE_ORDER:
-      return {
-        ...state,
+      return extend(state, {
         allOrders: state.allOrders.filter(p => p.id !== action.payload),
-      }
+      });
     case ADD_ORDER:
-      return {
-        ...state,
+      return extend(state, {
         allOrders: [{ ...action.payload }, ...state.allOrders]
-      }
+      });
     case UPDATE_ORDER:
-      return {
-        ...state,
+      return extend(state, {
         allOrders: state.allOrders.map(order => {
           if (order.id === action.payload.id) {
             order.name = action.payload.name
@@ -42,7 +41,23 @@ export const orderReducer = (state = initialState, action) => {
           }
           return order
         })
-      }
+      });
+    case LOAD_EXPENSES:
+      return extend(state, {
+        allExpenses: action.payload,
+      });
+
+    case ADD_EXPENSE:
+      return extend(state, {
+        allExpenses: [{ ...action.payload }, ...state.allExpenses]
+      });
+
+    case LOAD_SELLERS:
+      return extend(state, {
+        allSellers: action.payload,
+      });
+
+
   }
 
   return state

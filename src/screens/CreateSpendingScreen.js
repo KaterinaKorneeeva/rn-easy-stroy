@@ -1,45 +1,99 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity, Button } from 'react-native'
 import { COLORS, FONTS } from '../theme'
-import { listExpenses, sellersList } from '../../src/data'
 import { AppTextInput } from '../components/ui/AppTextInput'
 import { AppLabel } from '../components/ui/AppLabel'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { CommonActions } from '@react-navigation/native';
+import Table from '../components/Table'
+import { sellerInfoById } from '../../src/orders'
+import { addExpense } from '../store/actions/order'
+import { loadExpenses, loadSellers } from '../store/actions/order'
+
 
 export const CreateSpendingScreen = ({ route, navigation }) => {
 
     const [sum, setSum] = useState('')
+    const [expenseName, expenseNameSet] = useState('')
     const [label, setLabel] = useState('');
-
+    const [comment, commentSet] = useState('');
 
     const [step, setStep] = useState(1);
+
+  
+
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadExpenses())
+    }, [dispatch])
+
+
+    useEffect(() => {
+        dispatch(loadSellers())
+    }, [dispatch])
+
+
+    const listSellers = useSelector(state => state.order.allSellers)
+
+
+    
+
+    //добавление имени и лого продавца по id продавца
+    const adaptData = (item) => {
+        const sellerTest = sellerInfoById(listSellers, item.seller_id)
+        return Object.assign(item, {
+            sellerName: sellerTest.name,
+            sellerLogo: 'sellerLogo',
+        });
+    };
+    const listExpensesFull = useSelector(state => state.order.allExpenses).map((item, i) => adaptData(item))
 
     const nextStepHandler = () => {
         setStep(step + 1)
     }
+
     const saveHandler = () => {
         alert('Сделать фото чека?')
         setSum('')
         setStep(1)
+
+
+        
+
+        const spendingItem = {
+            date: new Date().toDateString().slice(4, 10),
+            sum: sum,
+            expenseName: expenseName,
+            seller_id: label,
+            comment: comment,
+        }
+
+        dispatch(addExpense(spendingItem))
 
     }
     return (
         <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
             contentContainerStyle={styles.container}
+            extraScrollHeight={50}
         >
             <View>
-            <View style={{ flexDirection: 'row' }}>
-                <Button
-                    title="Назад к объекту"
-                    onPress={() => navigation.goBack()}
-                />
-                <Button
-                    title="Все объекты"
-                    onPress={() => navigation.navigate('MainScreen')}
-                />
-            </View>
-                <Text>Экран добавления расхода </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Button
+                        title="Все объекты"
+                        onPress={() =>
+                            navigation.dispatch(
+                                CommonActions.navigate({
+                                    name: 'MainScreen',
+                                })
+                            )
+                        }
+                    />
+                </View>
+
                 <View style={[styles.boxInfo]}>
                     <View style={[styles.item, styles.shadowProp]}>
                         <Text style={{ color: COLORS.BLACK, ...FONTS.body2 }}>расход</Text>
@@ -51,35 +105,11 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
 
                     </View>
                 </View>
-
                 {/* таблица со списком расходов */}
-                <View style={[styles.tableWrap]}>
-                        <FlatList data={listExpenses}
-                            contentContainerStyle={{ justifyContent: 'center' }}
-                            keyExtractor={order => order.id.toString()}
-                            renderItem={({ item }) =>
+                <Table data={listExpensesFull} />
 
-                                <View style={{ flexDirection: 'row',  position: 'relative' }}>
-                                    <View
-                                        style={{ backgroundColor: COLORS.BLUE, borderRadius: 50, width: 40, height: 40, marginRight:15}} >
 
-                                    </View>
-                                    <View style = {{ marginBottom:5 }}>
-                                        <Text style = {{ color: COLORS.BLACK, ...FONTS.body1, marginRight:120 }}> {item.name}</Text>
-                                        <Text style = {{ color: COLORS.BLACK, ...FONTS.body2, marginBottom: 5 }}>Магазин Оби</Text>
-                                        <Text style = {{ color: COLORS.BLUE, ...FONTS.smallTitle }}>-{item.sum} ₽</Text>
-                                        <Text style = {{ color: COLORS.GREY, ...FONTS.body2,  }}>Кто добавил</Text>
-                                    </View>
-                                    <View style={{ position: 'absolute', right: 0 }}>
-                                        <Text>{item.date}</Text>
-                                    </View>
-                                </View>
-                            }
-                        />
-                </View>
-
-                {/* Запись затрат */}
-
+                {/* пошаговая запись затрат */}
 
 
                 {/* 1ый шаг  ввод суммы обязательное*/}
@@ -93,7 +123,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                         />
                         {/* добавить календарь */}
                         <Button
-                            title='Продолжить' // Сохранить и предлагаем сделать фото чека 
+                            title='Продолжить' // 
                             color={COLORS.BLUE}
                             onPress={nextStepHandler}
                             disabled={!sum}
@@ -101,8 +131,26 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                     </View>
                 }
 
-                {/* 2ой шаг - выбор продавца обязательное */}
+                {/* 2ой шаг ввод наименования покупки*/}
                 {step === 2 &&
+                    <View style={styles.inputContainer}>
+                        <AppTextInput
+                            placeholder="наименование"
+                            value={expenseName}
+                            inputChange={expenseNameSet}
+                        />
+                        {/* добавить календарь */}
+                        <Button
+                            title='Продолжить' //  
+                            color={COLORS.BLUE}
+                            onPress={nextStepHandler}
+                            disabled={!expenseName}
+                        />
+                    </View>
+                }
+
+                {/* 3й шаг  - выбор продавца обязательное */}
+                {step === 3 &&
                     <View style={styles.inputContainer}>
                         <Text style={{ color: COLORS.GREY, textAlign: 'center', ...FONTS.body1, marginBottom: 10 }}>продавец</Text>
 
@@ -110,7 +158,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             <AppLabel
                                 label={label}
                                 setLabel={setLabel}
-                                values={sellersList} />
+                                values={listSellers} />
                             <Button
                                 title='Продолжить' // Сохранить и предлагаем сделать фото чека 
                                 color={COLORS.BLUE}
@@ -120,14 +168,13 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                         </View>
                     </View>
                 }
-                {/* 3й шаг - Комментарий необязательно*/}
-                {step === 3 &&
+                {/* 4й шаг - Комментарий необязательно*/}
+                {step === 4 &&
                     <View style={styles.inputContainer}>
                         <AppTextInput
                             placeholder="Комментарий "
-                            //  value={sum}
-                            //  inputChange={setSum}
-                            //  keyboardType="numeric"
+                            value={comment}
+                            inputChange={commentSet}
                             multiline
                         />
 
@@ -141,23 +188,16 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                 }
 
             </View>
-        </KeyboardAwareScrollView >
+        </KeyboardAwareScrollView>
     )
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center'
         backgroundColor: COLORS.WHITE,
         paddingHorizontal: 20,
-    },
-
-
-    tableWrap: {
-        height: 250,
-        marginTop: 20,
     },
 
     boxInfo: {

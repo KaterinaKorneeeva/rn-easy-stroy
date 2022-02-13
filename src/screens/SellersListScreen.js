@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { COLORS, FONTS } from '../theme'
-import { sellersList } from '../../src/data'
+import { LIST_SELLERS } from '../../src/data'
 
 export const SellersListScreen = ({ }) => {
     return (
         <View style={style.center}>
             <Text> Справочники продавцов </Text>
-            <FlatList data={sellersList}
+            <FlatList data={LIST_SELLERS}
                 contentContainerStyle={{ justifyContent: 'center' }}
                 keyExtractor={seller => seller.id.toString()}
                 renderItem={({ item }) =>
