@@ -50,9 +50,8 @@ export const EditOrderScreen = ({ route, navigation }) => {
             resetScrollToCoords={{ x: 0, y: 0 }}
             contentContainerStyle={styles.container}
         >
-
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View style={styles.inner}>
+               <View style={styles.inner}>
                     <View style={styles.inputContainer}>
                         {name !== '' && <Text style={styles.label}>Название объекта</Text>}
                         <AppTextInput
@@ -154,8 +153,6 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             multiline
                         />
                     </View>
-
-
                     <Button
                         title='Сохранить'
                         color={COLORS.BLUE}
@@ -170,12 +167,11 @@ export const EditOrderScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        
     },
     inner: {
         padding: 24,
         flex: 1,
-        justifyContent: 'space-around',
     },
     inputWrapper: {
         flexDirection: 'row',
@@ -185,14 +181,14 @@ const styles = StyleSheet.create({
 
     inputContainer: {
         position: 'relative',
-        flexDirection: 'column'
+        display: 'flex',
     },
     label: {
         marginBottom: 10,
         color: COLORS.GREY,
         ...FONTS.body2,
         position: 'absolute',
-        top: 0
+        top: 10
     },
     input: {
         borderBottomWidth: 1,
