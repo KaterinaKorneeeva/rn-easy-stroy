@@ -64,65 +64,63 @@ export const CreateOrderScreen = ({ navigation }) => {
     return (
         <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
-            contentContainerStyle={styles.container}
+            // contentContainerStyle={styles.container}
         >
-
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.inner}>
                     <View style={styles.inputContainer}>
-                        {name !== '' && <Text style={styles.label}>Название объекта</Text>}
                         <AppTextInput
                             placeholder="Название объекта"
                             value={name}
                             inputChange={setName}
+                            label="Название объекта"
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        {address !== '' && <Text style={styles.label}>Адрес объекта</Text>}
                         <AppTextInput
                             placeholder="Адрес объекта"
                             value={address}
                             inputChange={setAddress}
                             dataDetectorTypes='address'
+                            label="Адрес объекта"
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        {сustomer !== '' && <Text style={styles.label}>Имя заказчика</Text>}
                         <AppTextInput
                             placeholder="Имя заказчика"
                             value={сustomer}
                             inputChange={setСustomer}
+                            label="Имя заказчика"
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        {phone !== '' && <Text style={styles.label}>Телефон заказчика</Text>}
-
                         <AppTextInput
                             placeholder="Телефон заказчика"
                             value={phone}
                             inputChange={setPhone}
                             keyboardType="numeric"
                             dataDetectorTypes={['phoneNumber']}
+                            label="Телефон заказчика"
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        {floorArea !== '' && <Text style={styles.label}>Площадь объекта</Text>}
                         <AppTextInput
                             placeholder="Площадь объекта"
                             value={floorArea}
                             inputChange={setFloorArea}
                             keyboardType="numeric"
+                            label="Площадь объекта"
                         />
                     </View>
 
                     <View style={styles.inputWrapper}>
-                        {price !== '' && <Text style={styles.label}>Сумма ремонта</Text>}
                         <AppTextInput
                             placeholder="Сумма ремонта"
                             value={price}
                             inputChange={setPrice}
                             keyboardType="numeric"
                             size='small'
+                            label="Сумма ремонта"
                         />
 
                         <View style={[styles.input, { width: '50%', marginTop: 40, position: 'relative' }]}>
@@ -143,31 +141,30 @@ export const CreateOrderScreen = ({ navigation }) => {
                         </View>
 
                         <View style={styles.inputContainer}>
-                            {dateStart !== '' && <Text style={styles.label}>Начало работ</Text>}
                             <AppDatePicker
                                 value={dateStart}
                                 setDate={setDateStart}
                                 placeholder="Начало работ"
-
+                                label="Начало работ"
                             />
                         </View>
                         <View style={styles.inputContainer}>
-                            {dateFinish !== '' && <Text style={styles.label}>Сдача объекта</Text>}
                             <AppDatePicker
                                 value={dateFinish}
                                 setDate={setDateFinish}
                                 placeholder="Сдача объекта"
+                                label="Сдача объекта"
                             />
                         </View>
                     </View>
                     <View style={styles.inputContainer}>
-                        {description !== '' && <Text style={styles.label}>Описание</Text>}
                         <AppTextInput
                             placeholder="Описание"
                             value={description}
                             inputChange={setDescription}
                             dataDetectorTypes='phoneNumber'
                             multiline
+                            label="Описание"
                         />
                     </View>
 
@@ -186,9 +183,6 @@ export const CreateOrderScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     inner: {
         padding: 24,
         flex: 1,

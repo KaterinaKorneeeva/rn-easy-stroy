@@ -1,20 +1,23 @@
 import React from 'react';
-import { StyleSheet, TextInput} from 'react-native';
+import { StyleSheet, TextInput, View, Text} from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import { COLORS, FONTS } from '../../theme'
 
 export const AppTextInput =
-    ({ value, inputChange, placeholder, keyboardType = 'default', dataDetectorTypes,  multiline = false, size = 'big', ...props }) => {
+    ({ value, inputChange, placeholder, keyboardType = 'default', dataDetectorTypes, multiline = false, size = 'big', label, ...props }) => {
         return (
-            <TextInput
-                style={ size === 'small' ? [styles.input, styles.inputHalf] : [styles.input]} 
-                placeholder={placeholder}
-                value={value}
-                onChangeText={inputChange}
-                keyboardType={keyboardType}
-                dataDetectorTypes={dataDetectorTypes}
-                multiline = {multiline}
-            />
+            <View>
+                {value !== ''  && <Text style={styles.label}>{label}</Text> } 
+                <TextInput
+                    style={size === 'small' ? [styles.input, styles.inputHalf] : [styles.input]}
+                    placeholder={placeholder}
+                    value={value}
+                    onChangeText={inputChange}
+                    keyboardType={keyboardType}
+                    dataDetectorTypes={dataDetectorTypes}
+                    multiline={multiline}
+                />
+            </View>
 
         )
     }
@@ -33,5 +36,12 @@ const styles = StyleSheet.create({
     },
     inputHalf: {
         width: '45%'
-    }
+    },
+    label: {
+        marginBottom: 10,
+        color: COLORS.GREY,
+        ...FONTS.body2,
+        position: 'absolute',
+        top: 10
+    },
 })

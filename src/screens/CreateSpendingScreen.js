@@ -60,9 +60,6 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
         setSum('')
         setStep(1)
 
-
-        
-
         const spendingItem = {
             date: new Date().toDateString().slice(4, 10),
             sum: sum,
@@ -120,6 +117,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             value={sum}
                             inputChange={setSum}
                             keyboardType="numeric"
+                            label= "введите сумму"
                         />
                         {/* добавить календарь */}
                         <Button
@@ -138,6 +136,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             placeholder="наименование"
                             value={expenseName}
                             inputChange={expenseNameSet}
+                            label= "наименование"
                         />
                         {/* добавить календарь */}
                         <Button
@@ -172,10 +171,11 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                 {step === 4 &&
                     <View style={styles.inputContainer}>
                         <AppTextInput
-                            placeholder="Комментарий "
+                            placeholder="Комментарий"
                             value={comment}
                             inputChange={commentSet}
                             multiline
+                            label= "Комментарий"
                         />
 
                         <Button
