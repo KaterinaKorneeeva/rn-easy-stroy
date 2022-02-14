@@ -5,7 +5,7 @@ import { COLORS } from '../theme'
 import { statusesList } from '../../src/data'
 import { AppLabel } from '../components/ui/AppLabel'
 
-export const OrderList = ({ data, onOpen }) => {
+export const SellersList = ({ data, onOpen }) => {
   const numColumns = 2
 
   const formData = (data, numColumns) => {
@@ -19,23 +19,23 @@ export const OrderList = ({ data, onOpen }) => {
     return data
   }
 
-  // установка статуса
-  const [label, setLabel] = useState('');
+  //   // установка статуса
+  //   const [label, setLabel] = useState('');
 
   return (
     <View style={styles.wrapper}>
 
-      <AppLabel
+      {/* <AppLabel
         label={label}
         setLabel={setLabel}
-        values={statusesList} />
+        values={statusesList} /> */}
 
       <FlatList
         numColumns={numColumns}
         data={formData(data, numColumns)}
         contentContainerStyle={{ justifyContent: 'center' }}
         keyExtractor={order => order.id.toString()}
-        renderItem={({ item }) => <Card type="order" order={item} onOpen={onOpen} />}
+        renderItem={({ item }) => <Card type="seller" order={item} onOpen={onOpen} />}
       />
     </View>
   )

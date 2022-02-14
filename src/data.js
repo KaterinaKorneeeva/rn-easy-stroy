@@ -134,18 +134,24 @@ export const LIST_SELLERS= [
     name: 'Леруа',
     phone: '',
     description: 'Магазин Леруа',
+    logo: 'https://cdn1.flamp.ru/de2482f95921edbcdd2635ed18ba75b5.jpg',
+    numberOrders: '10',
   },
   {
     id: '2',
     name: 'Икеа',
     phone: '',
     description: '',
+    logo: 'https://static.tildacdn.com/tild3764-3135-4664-b561-393533383361/new_logo_ikea.jpg',
+    numberOrders: '0',
   },
   {
     id: '3',
     name: 'OBI',
     phone: '',
     description: '',
+    logo:  'https://static.tildacdn.com/tild3764-3135-4664-b561-393533383361/new_logo_ikea.jpg',
+    numberOrders: '0',
   },
 ]
 
