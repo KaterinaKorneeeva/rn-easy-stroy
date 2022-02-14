@@ -64,7 +64,7 @@ export const CreateOrderScreen = ({ navigation }) => {
     return (
         <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
-            // contentContainerStyle={styles.container}
+        // contentContainerStyle={styles.container}
         >
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.inner}>
@@ -119,12 +119,12 @@ export const CreateOrderScreen = ({ navigation }) => {
                             value={price}
                             inputChange={setPrice}
                             keyboardType="numeric"
-                            size='small'
                             label="Сумма ремонта"
+                            size="small"
                         />
 
-                        <View style={[styles.input, { width: '50%', marginTop: 40, position: 'relative' }]}>
-                            {pay !== '' && <Text style={styles.label}>Вид оплаты</Text>}
+                        <View style={styles.select}>
+                            {pay !== '' && <Text style={styles.selectLabel}>Вид оплаты</Text>}
                             <RNPickerSelect
                                 onValueChange={setPay}
                                 value={pay}
@@ -139,13 +139,13 @@ export const CreateOrderScreen = ({ navigation }) => {
                                 ]}
                             />
                         </View>
-
                         <View style={styles.inputContainer}>
                             <AppDatePicker
                                 value={dateStart}
                                 setDate={setDateStart}
                                 placeholder="Начало работ"
                                 label="Начало работ"
+
                             />
                         </View>
                         <View style={styles.inputContainer}>
@@ -167,7 +167,6 @@ export const CreateOrderScreen = ({ navigation }) => {
                             label="Описание"
                         />
                     </View>
-
                     <PhotoPicker onPick={photoPickHandler} />
 
                     <Button
@@ -186,33 +185,36 @@ const styles = StyleSheet.create({
     inner: {
         padding: 24,
         flex: 1,
-        justifyContent: 'space-around',
     },
     inputWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
 
     inputContainer: {
         position: 'relative',
-        flexDirection: 'column'
+        display: 'flex',
     },
-    label: {
+
+    select: {
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+        borderBottomColor: COLORS.GREY,
+      
+        fontSize: 16,
+
+        width: '50%', 
+        paddingTop: 40,
+        paddingBottom: 10, 
+        position: 'relative' 
+    },
+    selectLabel: {
         marginBottom: 10,
         color: COLORS.GREY,
         ...FONTS.body2,
         position: 'absolute',
-        top: 0
+        top: 10
     },
-    input: {
-        borderBottomWidth: 1,
-        borderStyle: 'solid',
-        borderBottomColor: COLORS.GREY,
 
-        paddingTop: 40,
-        paddingBottom: 10,
-        color: COLORS.GREY,
-        fontSize: 16,
-    },
 })

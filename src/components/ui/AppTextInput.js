@@ -1,15 +1,14 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Text} from 'react-native';
-import DatePicker from 'react-native-datepicker'
 import { COLORS, FONTS } from '../../theme'
 
 export const AppTextInput =
-    ({ value, inputChange, placeholder, keyboardType = 'default', dataDetectorTypes, multiline = false, size = 'big', label, ...props }) => {
+    ({ value ='', inputChange, placeholder, keyboardType = 'default', dataDetectorTypes, multiline = false, size = 'big', label, ...props }) => {
         return (
-            <View>
+            <View style={size === 'small' ? {width: '45%'} : {width: '100%'}}>
                 {value !== ''  && <Text style={styles.label}>{label}</Text> } 
                 <TextInput
-                    style={size === 'small' ? [styles.input, styles.inputHalf] : [styles.input]}
+                    style={styles.input}
                     placeholder={placeholder}
                     value={value}
                     onChangeText={inputChange}
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     inputHalf: {
-        width: '45%'
+        width: '45%',
     },
     label: {
         marginBottom: 10,

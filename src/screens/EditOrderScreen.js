@@ -48,16 +48,16 @@ export const EditOrderScreen = ({ route, navigation }) => {
 
         <KeyboardAwareScrollView
             resetScrollToCoords={{ x: 0, y: 0 }}
-            // contentContainerStyle={styles.container}
+        // contentContainerStyle={styles.container}
         >
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-               <View style={styles.inner}>
+                <View style={styles.inner}>
                     <View style={styles.inputContainer}>
                         <AppTextInput
                             placeholder="Название объекта"
                             value={name}
                             inputChange={setName}
-                            label = "Название объекта"
+                            label="Название объекта"
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -66,7 +66,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             value={address}
                             inputChange={setAddress}
                             dataDetectorTypes='address'
-                            label = "Адрес объекта"
+                            label="Адрес объекта"
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -74,7 +74,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             placeholder="Имя заказчика"
                             value={сustomer}
                             inputChange={setСustomer}
-                            label = "Имя заказчика"
+                            label="Имя заказчика"
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -84,7 +84,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             inputChange={setPhone}
                             keyboardType="numeric"
                             dataDetectorTypes={['phoneNumber']}
-                            label = "Телефон заказчика"
+                            label="Телефон заказчика"
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -93,7 +93,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             value={floorArea}
                             inputChange={setFloorArea}
                             keyboardType="numeric"
-                            label = "Площадь объекта"
+                            label="Площадь объекта"
                         />
                     </View>
 
@@ -103,12 +103,12 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             value={price}
                             inputChange={setPrice}
                             keyboardType="numeric"
-                            size='small'
-                            label = "Сумма ремонта"
+                            label="Сумма ремонта"
+                            size="small"
                         />
 
-                        <View style={[styles.input, { width: '50%', marginTop: 40, position: 'relative' }]}>
-                            {pay !== '' && <Text style={styles.label}>Вид оплаты</Text>}
+                        <View style={styles.select}>
+                            {pay !== '' && <Text style={styles.selectLabel}>Вид оплаты</Text>}
                             <RNPickerSelect
                                 onValueChange={setPay}
                                 value={pay}
@@ -129,7 +129,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                                 value={dateStart}
                                 setDate={setDateStart}
                                 placeholder="Начало работ"
-                                label = "Начало работ"
+                                label="Начало работ"
 
                             />
                         </View>
@@ -138,7 +138,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                                 value={dateFinish}
                                 setDate={setDateFinish}
                                 placeholder="Сдача объекта"
-                                label = "Сдача объекта"
+                                label="Сдача объекта"
                             />
                         </View>
                     </View>
@@ -149,7 +149,7 @@ export const EditOrderScreen = ({ route, navigation }) => {
                             inputChange={setDescription}
                             dataDetectorTypes='phoneNumber'
                             multiline
-                            label = "Описание"
+                            label="Описание"
                         />
                     </View>
                     <Button
@@ -165,9 +165,6 @@ export const EditOrderScreen = ({ route, navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        
-    },
     inner: {
         padding: 24,
         flex: 1,
@@ -181,5 +178,24 @@ const styles = StyleSheet.create({
     inputContainer: {
         position: 'relative',
         display: 'flex',
+    },
+    select: {
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+        borderBottomColor: COLORS.GREY,
+
+        fontSize: 16,
+
+        width: '50%',
+        paddingTop: 40,
+        paddingBottom: 10,
+        position: 'relative'
+    },
+    selectLabel: {
+        marginBottom: 10,
+        color: COLORS.GREY,
+        ...FONTS.body2,
+        position: 'absolute',
+        top: 10
     },
 })
