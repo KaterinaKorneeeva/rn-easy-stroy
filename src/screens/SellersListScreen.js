@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SellersList } from '../components/SellersList'
 import { loadSellers } from '../store/actions/order'
 
-export const SellersListScreen = ({ }) => {
-
-    const openSellerHandler = order => {
-        navigation.navigate('OrderScreen', { orderId: order.id, orderName: order.name, })
+export const SellersListScreen = ({ navigation }) => {
+    const openSellerHandler = seller => {
+        navigation.navigate('SellerScreen', { sellerId: seller.id, sellerName: seller.name, })
     }
 
     const dispatch = useDispatch()

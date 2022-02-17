@@ -7,7 +7,9 @@ import { MainScreen } from '../screens/MainScreen';
 import { CreateOrderScreen } from '../screens/CreateOrderScreen';
 import { CreateSellerScreen } from '../screens/CreateSellerScreen';
 import { EditOrderScreen } from '../screens/EditOrderScreen';
+import { EditSellerScreen } from '../screens/EditSellerScreen';
 import { OrderScreen } from '../screens/OrderScreen';
+import { SellerScreen } from '../screens/SellerScreen';
 import { SellersListScreen } from '../screens/SellersListScreen';
 import { CreateSpendingScreen } from '../screens/CreateSpendingScreen';
 import { CreateDepositScreen } from '../screens/CreateDepositScreen';
@@ -113,7 +115,6 @@ function OrderTabs() {
                 }}
             />
             <Tab.Screen
-             mode='modal'
                 name="История"
                 component={HistoryScreen}
                 options={{
@@ -186,7 +187,31 @@ export default function AppNavigation() {
                                 />
                         })}
                 />
+                {/* экран объекта */}
+                <Stack.Screen
+                    name="SellerScreen"
+                    component={SellerScreen}
+                    // component={TestBottomTab}
+                    options={({ route, navigation }) =>
+                        ({
+
+                            title: route.params.postName,
+                            headerStyle: {
+                                backgroundColor: COLORS.LIGHT_GREY,
+                            },
+                            headerTintColor: Platform.OS === 'android' ? COLORS.BLUE : COLORS.BLUE,
+                            headerTitleStyle: {
+                                // fontWeight: 'bold',
+                            },
+                            headerRight: () =>
+                                <Button
+                                    onPress={() => navigation.navigate('EditSellerScreen', { sellerId: route.params.sellerId })}
+                                    title="edit"
+                                />
+                        })}
+                />
                 <Stack.Screen name="EditOrderScreen" component={EditOrderScreen} />
+                <Stack.Screen name="EditSellerScreen" component={EditSellerScreen} />
                 <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
 
 

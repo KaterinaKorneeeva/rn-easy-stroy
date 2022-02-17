@@ -1,54 +1,71 @@
 import React, { useState, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Alert } from 'react-native'
 import { AppTextInput } from '../components/ui/AppTextInput'
 import { COLORS, FONTS } from '../theme'
-import { useDispatch } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Button,
-    ScrollView,
-    TouchableWithoutFeedback,
-    Platform,
-    Keyboard, // для закрытия клавиатуры
-} from 'react-native'
+import { updateSeller } from '../store/actions/order'
 
-import { addSeller } from '../store/actions/order'
-export const CreateSellerScreen = ({ navigation }) => {
-
+export const EditSellerScreen = ({ route, navigation }) => {
     const dispatch = useDispatch();
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [address, setAddress] = useState('')
-    const [description, setDescription] = useState('')
+    const { sellerId } = route.params;
+
+    console.log('route.paramsroute.params',route.params);
+
+    const seller = useSelector(state =>
+        state.order.allSellers.find(o => o.id === sellerId)
+    )
+
+    console.log('descriptiondescriptionorderorderorderorder',seller);
+
+    const [name, setName] = useState(seller.name)
+    const [address, setAddress] = useState(seller.address)
+    const [phone, setPhone] = useState(seller.phone)
+    const [description, setDescription] = useState(seller.description)
 
 
-    const saveHandler = () => {
-        const seller = {
-            date: new Date().toJSON(),
-            name: name,
-            address: address,
-            phone: phone,
-            type: 'seller',
-            numberOrders: '',
-            balance: '',
-            logo: '',
-            description: description,
-            // img: imgRef.current,
-        }
 
-        dispatch(addSeller(seller))
-        navigation.navigate('MainScreen')
+    const updateHandler = () => {
+        dispatch(updateSeller(
+            sellerId,
+            name,
+            address,
+            phone,
+            description,
+        ))
+        navigation.navigate('SellerScreen', { sellerId: sellerId })
     }
+
+    const removeHandler = () => {
+        Alert.alert(
+            'Удаление подавца',
+            'Вы точно хотите удалить подавца?',
+            [
+                {
+                    text: 'Отменить',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Удалить', style: 'destructive',
+                    onPress: () => {
+                        //   поменять ссылку 
+                        navigation.navigate('MainScreen')
+                        // dispatch(removeOrders(orderId))
+                    }
+                }
+            ],
+            { cancelable: false }
+        )
+    }
+
     return (
+
         <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-    // contentContainerStyle={styles.container}
-    >
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.inner}>
+            resetScrollToCoords={{ x: 0, y: 0 }}
+        // contentContainerStyle={styles.container}
+        >
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <View style={styles.inner}>
                     <View style={styles.inputContainer}>
                         <AppTextInput
                             placeholder="Продавец"
@@ -89,19 +106,28 @@ export const CreateSellerScreen = ({ navigation }) => {
                     <Button
                         title='Сохранить'
                         color={COLORS.BLUE}
-                        onPress={saveHandler}
+                        onPress={updateHandler}
                         disabled={!name}
+                    />
+                    <Button
+                        title='Удалить'
+                        color={COLORS.RED}
+                        onPress={removeHandler}
                     />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAwareScrollView >
     )
-
 }
 
 const styles = StyleSheet.create({
     inner: {
         padding: 24,
         flex: 1,
+    },
+
+    inputContainer: {
+        position: 'relative',
+        display: 'flex',
     },
 })

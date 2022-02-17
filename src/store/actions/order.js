@@ -1,4 +1,4 @@
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS} from '../types'
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER} from '../types'
 import { DATA, LIST_EXPENSES, LIST_SELLERS} from '../../data'
 
 
@@ -70,6 +70,30 @@ export const loadSellers = () => {
   return {
     type: LOAD_SELLERS,
     payload: LIST_SELLERS
+  }
+}
+
+export const addSeller = seller => {
+  seller.id = Date.now().toString()
+
+  return {
+    type: ADD_SELLER,
+    payload: seller
+  }
+}
+
+
+export const updateSeller = (id, name, address, phone, description) => {
+
+  return {
+    type: UPDATE_SELLER,
+    payload : {
+      id : id,
+      name : name,
+      address, 
+      phone,
+      description,
+    }
   }
 }
 

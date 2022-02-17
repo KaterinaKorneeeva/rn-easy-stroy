@@ -1,5 +1,5 @@
 import { extend } from "../../utils";
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS } from "../types"
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER } from "../types"
 
 
 const initialState = {
@@ -56,8 +56,23 @@ export const orderReducer = (state = initialState, action) => {
       return extend(state, {
         allSellers: action.payload,
       });
+    case ADD_SELLER:
+      return extend(state, {
+        allSellers: [{ ...action.payload }, ...state.allSellers]
+      });
 
-
+      case UPDATE_SELLER:
+        return extend(state, {
+          allSellers: state.allSellers.map(seller => {
+            if (seller.id === action.payload.id) {
+              seller.name = action.payload.name
+              seller.address = action.payload.address
+              seller.phone = action.payload.phone
+              seller.description = action.payload.description
+            }
+            return seller
+          })
+        });
   }
 
   return state

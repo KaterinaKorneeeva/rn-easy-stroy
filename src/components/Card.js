@@ -4,40 +4,40 @@ import { COLORS, FONTS } from '../theme'
 import { statusNameById } from '../orders'
 import { statusesList } from '../data'
 
-export const Card = ({ order, type, onOpen }) => {
+export const Card = ({ item, type, onOpen }) => {
 
-    const status = order.empty ? '0' : statusNameById(statusesList, order.status)
+    const status = item.empty ? '0' : statusNameById(statusesList, item.status)
 
-    if (order.empty) {
+    if (item.empty) {
         return <View style={[styles.item, styles.itemInvisible]}></View>
     }
 
     return (
-        <TouchableOpacity style={[styles.itemWrap]} activeOpacity={0.7} onPress={() => onOpen(order)}>
+        <TouchableOpacity style={[styles.itemWrap]} activeOpacity={0.7} onPress={() => onOpen(item)}>
 
             <View style={[styles.item, styles.shadowProp]}>
                 {type === "seller" &&
                     <>
                         <View>
                             <View style={{  borderRadius: 50, width: 40, height: 40, }}>
-                                <Image source={{ uri: order.logo }} style={styles.image} /> 
+                                <Image source={{ uri: item.logo }} style={styles.image} /> 
                             </View>
-                            <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{order.name}</Text>
+                            <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{item.name}</Text>
                         </View>
 
-                        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{order.responsible}</Text>
+                        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{item.responsible}</Text>
                         <Text style={{ position: 'absolute', bottom: 15, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
-                            {order.numberOrders}
+                            {item.numberOrders}
                         </Text>
                         <Text style={{ position: 'absolute', bottom: 35, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
-                            1000р
+                            {item.balance}
                         </Text>
                     </>
                 }
                 {type === "order" &&
                     <>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{order.name}</Text>
-                        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{order.responsible}</Text>
+                        <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{item.name}</Text>
+                        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{item.responsible}</Text>
                         <Text style={{ position: 'absolute', bottom: 15, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
                             {status.name}
                         </Text>

@@ -35,7 +35,7 @@ export const OrderList = ({ data, onOpen }) => {
         data={formData(data, numColumns)}
         contentContainerStyle={{ justifyContent: 'center' }}
         keyExtractor={order => order.id.toString()}
-        renderItem={({ item }) => <Card type="order" order={item} onOpen={onOpen} />}
+        renderItem={({ item }) => <Card type="order" item={item} onOpen={onOpen} />}
       />
     </View>
   )
