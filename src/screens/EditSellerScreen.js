@@ -9,15 +9,9 @@ import { updateSeller } from '../store/actions/order'
 export const EditSellerScreen = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const { sellerId } = route.params;
-
-    console.log('route.paramsroute.params',route.params);
-
     const seller = useSelector(state =>
         state.order.allSellers.find(o => o.id === sellerId)
     )
-
-    console.log('descriptiondescriptionorderorderorderorder',seller);
-
     const [name, setName] = useState(seller.name)
     const [address, setAddress] = useState(seller.address)
     const [phone, setPhone] = useState(seller.phone)

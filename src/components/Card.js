@@ -50,10 +50,10 @@ export const Card = ({ item, type, onOpen }) => {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: "white",
+        backgroundColor: COLORS.WHITE,
         borderRadius: 10,
         height: 215,
-        shadowColor: "#000",
+        shadowColor: COLORS.BLACK,
         padding: 15,
         flex: 1,
     },

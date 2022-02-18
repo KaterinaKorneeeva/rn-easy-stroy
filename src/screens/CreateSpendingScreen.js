@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity, Button } from 'react-native'
+import { View, Text, StyleSheet, Button} from 'react-native'
 import { COLORS, FONTS } from '../theme'
 import { AppTextInput } from '../components/ui/AppTextInput'
 import { AppLabel } from '../components/ui/AppLabel'
+import { AppModal } from '../components/ui/AppModal'
+import Table from '../components/Table'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { CommonActions } from '@react-navigation/native';
-import Table from '../components/Table'
 import { sellerInfoById } from '../../src/orders'
-import { addExpense } from '../store/actions/order'
-import { loadExpenses, loadSellers } from '../store/actions/order'
-
+import { loadExpenses, loadSellers, addExpense, addSeller} from '../store/actions/order'
 
 export const CreateSpendingScreen = ({ route, navigation }) => {
 
@@ -18,11 +17,9 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
     const [expenseName, expenseNameSet] = useState('')
     const [label, setLabel] = useState('');
     const [comment, commentSet] = useState('');
-
+    const [sellerNew, setSellerNew] = useState('');
     const [step, setStep] = useState(1);
-
-  
-
+    const [modalVisible, setModalVisible] = useState(false);
 
     const dispatch = useDispatch()
 
@@ -36,12 +33,33 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
     }, [dispatch])
 
 
-    const listSellers = useSelector(state => state.order.allSellers)
+    const listSellers = useSelector(state => state.order.allSellers).filter((item) => item.empty !== true)
 
 
-    
+    const openModalHandler = () => {
+        setModalVisible(true)
+    }
 
-    //добавление имени и лого продавца по id продавца
+
+    const addSellerHandler = () => {
+        const sellerNewData = {
+            date: new Date().toJSON(),
+            name: sellerNew,
+            address: '',
+            phone: '',
+            type: 'seller',
+            numberOrders: '',
+            balance: '',
+            logo: '',
+            description: '',
+        }
+        dispatch(addSeller(sellerNewData))
+        setSellerNew('')
+        // закрыть модальное окно
+        setModalVisible(!modalVisible)
+    }
+
+    // добавление имени и лого продавца по id продавца
     const adaptData = (item) => {
         const sellerTest = sellerInfoById(listSellers, item.seller_id)
         return Object.assign(item, {
@@ -77,6 +95,28 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
             contentContainerStyle={styles.container}
             extraScrollHeight={50}
         >
+
+            <AppModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            >
+
+                <Text style={styles.title}> Добавить нового продавца</Text>
+                <AppTextInput
+                    placeholder="наименование"
+                    value={sellerNew}
+                    inputChange={setSellerNew}
+                    label="наименование"
+                />
+                {/* добавить календарь */}
+                <Button
+                    title='Сохранить' //  
+                    color={COLORS.BLUE}
+                    onPress={addSellerHandler}
+                    disabled={!sellerNew}
+                />
+            </AppModal>
+
             <View>
                 <View style={{ flexDirection: 'row' }}>
                     <Button
@@ -103,12 +143,10 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                     </View>
                 </View>
                 {/* таблица со списком расходов */}
+
                 <Table data={listExpensesFull} />
 
-
                 {/* пошаговая запись затрат */}
-
-
                 {/* 1ый шаг  ввод суммы обязательное*/}
                 {step === 1 &&
                     <View style={styles.inputContainer}>
@@ -117,7 +155,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             value={sum}
                             inputChange={setSum}
                             keyboardType="numeric"
-                            label= "введите сумму"
+                            label="введите сумму"
                         />
                         {/* добавить календарь */}
                         <Button
@@ -136,7 +174,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             placeholder="наименование"
                             value={expenseName}
                             inputChange={expenseNameSet}
-                            label= "наименование"
+                            label="наименование"
                         />
                         {/* добавить календарь */}
                         <Button
@@ -157,12 +195,15 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             <AppLabel
                                 label={label}
                                 setLabel={setLabel}
-                                values={listSellers} />
+                                values={listSellers}
+                                isModeCreate
+                                openModalHandler={openModalHandler}
+                            />
                             <Button
                                 title='Продолжить' // Сохранить и предлагаем сделать фото чека 
                                 color={COLORS.BLUE}
                                 onPress={nextStepHandler}
-                                disabled={!sum}
+                                disabled={!label}
                             />
                         </View>
                     </View>
@@ -175,14 +216,13 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             value={comment}
                             inputChange={commentSet}
                             multiline
-                            label= "Комментарий"
+                            label="Комментарий"
                         />
 
                         <Button
                             title='Сохранить' // Сохранить и предлагаем сделать фото чека 
                             color={COLORS.BLUE}
                             onPress={saveHandler}
-                        // disabled={!sum}
                         />
                     </View>
                 }
@@ -223,6 +263,16 @@ const styles = StyleSheet.create({
         shadowRadius: 2.62,
 
         elevation: 4,
+    },
+
+    modalView: {
+        marginTop: '20%',
+        marginVertical: 20,
+        marginHorizontal: 20,
+        backgroundColor: COLORS.WHITE,
+        borderRadius: 10,
+        padding: 35,
+        alignItems: "center",
     },
 
 })
