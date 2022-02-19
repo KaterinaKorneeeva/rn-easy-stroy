@@ -1,5 +1,5 @@
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER} from '../types'
-import { DATA, LIST_EXPENSES, LIST_SELLERS} from '../../data'
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_OPERATIONS,LOAD_OPERATIONS_EXPENSE, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER} from '../types'
+import { DATA, LIST_OPERATIONS, LIST_SELLERS} from '../../data'
 
 
 export const loadOrders = () => {
@@ -47,10 +47,17 @@ export const updateOrder = (id, name, address, сustomer, phone, floorArea, pric
 
 
 
-export const loadExpenses = () => {
+export const loadOperations = () => {
   return {
-    type: LOAD_EXPENSES,
-    payload: LIST_EXPENSES
+    type: LOAD_OPERATIONS,
+    payload: LIST_OPERATIONS
+  }
+}
+
+export const loadOperationsExpense = () => {
+  return {
+    type: LOAD_OPERATIONS_EXPENSE,
+    payload: LIST_OPERATIONS
   }
 }
 

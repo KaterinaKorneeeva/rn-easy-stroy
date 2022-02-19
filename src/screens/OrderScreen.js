@@ -198,7 +198,7 @@ export const OrderScreen = ({ route, navigation }) => {
             style={styles.containerTab}
             onPress={() => openOtherScreensHandler('history')}>
             <HistoryIcon color={'white'}   opacity='0.5' />
-            <Text style={{ color: '#fff', opacity: '0.5' }}>История</Text>
+            <Text style={{ color: '#fff', opacity: 0.5 }}>История</Text>
           </TouchableOpacity>
         </View>
       </View>

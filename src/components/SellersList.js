@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import { Card } from './Card'
 import { COLORS } from '../theme'
-import { statusesList } from '../../src/data'
-import { AppLabel } from '../components/ui/AppLabel'
 
 export const SellersList = ({ data, onOpen }) => {
   const numColumns = 2
@@ -19,17 +17,8 @@ export const SellersList = ({ data, onOpen }) => {
     return data
   }
 
-  //   // установка статуса
-  //   const [label, setLabel] = useState('');
-
   return (
     <View style={styles.wrapper}>
-
-      {/* <AppLabel
-        label={label}
-        setLabel={setLabel}
-        values={statusesList} /> */}
-
       <FlatList
         numColumns={numColumns}
         data={formData(data, numColumns)}
@@ -45,34 +34,6 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 7,
     flex: 1,
-    backgroundColor: 'white'
-  },
-  row: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  button: {
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: COLORS.LIGHT_GREY,
-    alignSelf: "flex-start",
-    marginHorizontal: "1%",
-    marginBottom: 6,
-    minWidth: "48%",
-    textAlign: "center",
-  },
-  buttonLabel: {
-    fontSize: 12,
-    fontWeight: "500",
-    color: "coral",
-  },
-  selectedLabel: {
-    color: "white",
-  },
-  label: {
-    textAlign: "center",
-    marginBottom: 10,
-    fontSize: 24,
+    backgroundColor: COLORS.WHITE
   },
 })

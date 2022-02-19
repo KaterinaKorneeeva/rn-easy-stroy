@@ -9,9 +9,8 @@ export const DATA = [
     responsible: 'Петров Иван',
     img:
       'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
-    text: 'ЖК «Береговой» 250 м² 1',
+  
     date: new Date().toJSON(),
-    booked: true,
     status: 1,
     description :  'Сделать быстро и качественно!',
     balance: '100000',
@@ -32,9 +31,8 @@ export const DATA = [
     floorArea: '240',
     img:
       'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg',
-    text: 'Фитнес центр «Силушка» 245 м ',
+   
     date: new Date().toJSON(),
-    booked: true,
     status: 1,
     
     pay: 'cash',
@@ -49,9 +47,8 @@ export const DATA = [
     responsible: 'Петров Иван',
     img:
       'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
-    text: 'Детский сад  3',
+
     date: new Date().toJSON(),
-    booked: false,
     status: 2,
     balance: '0',
     dateStart: '2021-01-01',
@@ -64,9 +61,8 @@ export const DATA = [
     responsible: 'Петров Дмитрий',
     img:
       'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg',
-    text: 'Детский сад  4',
+   
     date: new Date().toJSON(),
-    booked: false,
     status: 1,
     balance: '0',
     dateStart: '2021-01-01',
@@ -79,9 +75,8 @@ export const DATA = [
     responsible: 'Константин',
     img:
       'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
-    text: 'Бойцовский клуб 5',
+   
     date: new Date().toJSON(),
-    booked: false,
     status: 1,
     balance: '4999654.44',
     dateStart: '2021-01-01',
@@ -90,42 +85,63 @@ export const DATA = [
 ]
 
 
-export const LIST_EXPENSES= [
+export const LIST_OPERATIONS=  [
   {
     id: '1',
-    expenseName: '11Краска и все для покраски стен',
+    name: 'Краска и все для покраски стен',
     sum: '2000',
     date:  new Date().toDateString().slice(4, 10),
     seller_id: '1',
+    type: 'expense'
   },
   {
     id: '2',
-    expenseName: 'Плинтуса и дверные откосы',
+    name: 'Плинтуса и дверные откосы',
     sum: '2000',
     date: new Date().toDateString().slice(4, 10),
     seller_id: '2',
+    type: 'expense'
   },
   {
     id: '3',
-    expenseName: 'Краска и все для покраски стен',
+    name: 'Пополнение баланса',
     sum: '2000',
     date: new Date().toDateString().slice(4, 10),
     seller_id: '3',
+    type: 'deposit'
   },
   {
     id: '4',
-    expenseName: 'Плинтуса и дверные откосы',
+    name: 'Пополнение баланса',
     sum: '2000',
     date: new Date().toDateString().slice(4, 10),
     seller_id: '1',
+    type: 'deposit'
   },
   {
     id: '5',
-    expenseName: 'Плинтуса и дверные откосы Плинтуса и дверные откосы',
+    name: 'Плинтуса и дверные откосы Плинтуса и дверные откосы',
     sum: '2000',
     date: new Date().toDateString().slice(4, 10),
     seller_id: '2',
-  }
+    type: 'expense'
+  },
+  {
+    id: '6',
+    name: 'Пополнение баланса',
+    sum: '2000',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '1',
+    type: 'deposit'
+  },
+  {
+    id: '7',
+    name: 'Пополнение баланса',
+    sum: '2000',
+    date: new Date().toDateString().slice(4, 10),
+    seller_id: '1',
+    type: 'deposit'
+  },
 ]
 
 export const LIST_SELLERS= [

@@ -1,59 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTS } from '../../theme'
 
 export const AppLabel = ({ values, label, setLabel, isModeCreate = false, openModalHandler }) => {
-
-
     return (
         <View style={styles.row}>
-           
-
-                {values.map((value) => (
-                    <TouchableOpacity
-                        key={value.id}
-                        onPress={() => setLabel(value.id)}
-                        style={[
-                            styles.button,
-                            label === value.id && styles.selected,
-                        ]}
-                    >
-                        <Text
-                            style={{ color: label === value.id ? COLORS.WHITE : COLORS.BLACK, ...FONTS.body1 }} >
-                            {value.name}
-                        </Text>
-
-
-                    </TouchableOpacity>
-                ))}
-                {/*  режим добавления нового магазина */}
-                {isModeCreate &&
-                    <TouchableOpacity
-                        // key={value.id}
-                        onPress={() => openModalHandler()}
-                        style={[ styles.button, {color: COLORS.BLACK, ...FONTS.body1 }]}
-                    >
-                        <Text >
-                            добавить  
-                        </Text>
-
-
-                    </TouchableOpacity>
-
-
-
-                }
+            {values.map((value) => (
+                <TouchableOpacity
+                    key={value.id}
+                    onPress={() => setLabel(value.id)}
+                    style={[
+                        styles.button,
+                        label === value.id && styles.selected,
+                    ]}
+                >
+                    <Text
+                        style={{ color: label === value.id ? COLORS.WHITE : COLORS.BLACK, ...FONTS.body1 }} >
+                        {value.name}
+                    </Text>
+                </TouchableOpacity>
+            ))}
+            {/*  режим добавления нового магазина */}
+            {isModeCreate &&
+                <TouchableOpacity
+                    onPress={() => openModalHandler()}
+                    style={[styles.button, { color: COLORS.BLACK, ...FONTS.body1 }]}
+                >
+                    <Text> добавить </Text>
+                </TouchableOpacity>
+            }
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-                row: {
-                flexDirection: "row",
+    row: {
+        flexDirection: "row",
         flexWrap: "wrap",
     },
     button: {
-                paddingVertical: 10,
+        paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 18,
         backgroundColor: COLORS.LIGHT_GREY,
@@ -62,9 +48,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     selected: {
-                backgroundColor: COLORS.GREEN,
+        backgroundColor: COLORS.GREEN,
     },
-
-    
-
 });

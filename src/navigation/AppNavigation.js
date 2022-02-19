@@ -15,17 +15,10 @@ import { CreateSpendingScreen } from '../screens/CreateSpendingScreen';
 import { CreateDepositScreen } from '../screens/CreateDepositScreen';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { COLORS } from '../theme';
-
-import { BuildingIcon } from '../../assets/icons/iconsBottomBar/BuildingIcon';
-import { CompanionsIcon } from '../../assets/icons/iconsBottomBar/CompanionsIcon';
-import { ArrowUpIcon } from '../../assets/icons/iconsBottomBar/ArrowUpIcon';
-import { ArrowDownIcon } from '../../assets/icons/iconsBottomBar/ArrowDownIcon';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { AppHeaderIcon } from '../components/AppHeaderIcon'
-import { PlusIcon } from '../../assets/icons/PlusIcon';
 import TabBar from '../components/TabBar'
 
-import TestBottomTab from '../navigation/TestBottomTab'
 
 
 // функция замена тайтла при переключении табов
@@ -33,7 +26,6 @@ const INITIAL_ROUTE_NAME = 'Объекты';
 
 function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? INITIAL_ROUTE_NAME;
-
     switch (routeName) {
         case 'Объекты':
             return 'Объекты';
@@ -69,18 +61,16 @@ function getHeaderIcon({ navigation, route }) {
     }
 }
 
-
 // Нижняя навигация по умолчанию
 const Tab = createBottomTabNavigator();
 function MainTabs() {
     return (
-        <Tab.Navigator 
-        tabBar={props => <TabBar {...props} />}>
+        <Tab.Navigator
+            tabBar={props => <TabBar {...props} />}
+        >
             <Tab.Screen
                 name="Объекты"
                 component={MainScreen}
-            
-
             />
             <Tab.Screen
                 name="Список"
@@ -89,45 +79,6 @@ function MainTabs() {
         </Tab.Navigator>
     );
 }
-
-// вкладки для объектов сейчас не подключены
-function OrderTabs() {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen
-                name="Расход"
-                component={CreateSpendingScreen}
-                options={{
-                    tabBarLabel: 'Расход',
-                    tabBarIcon: () => {
-                        return <ArrowUpIcon color={'blue'} />
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Приход"
-                component={CreateDepositScreen}
-                options={{
-                    tabBarLabel: 'Приход',
-                    tabBarIcon: () => {
-                        return <ArrowDownIcon color={'blue'} />
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="История"
-                component={HistoryScreen}
-                options={{
-                    tabBarLabel: 'История',
-                    tabBarIcon: () => {
-                        return <CompanionsIcon color={'blue'} />
-                    }
-                }}
-            />
-        </Tab.Navigator>
-    );
-}
-
 
 const Stack = createStackNavigator();
 
@@ -148,7 +99,6 @@ export default function AppNavigation() {
                 <Stack.Screen
                     name="MainScreen"
                     component={MainTabs}
-                    // component={CreateSpendingScreen}
                     options={({ route, navigation }) => ({
                         headerTitle: getHeaderTitle(route),
                         headerRight: () =>
@@ -168,10 +118,8 @@ export default function AppNavigation() {
                 <Stack.Screen
                     name="OrderScreen"
                     component={OrderScreen}
-                    // component={TestBottomTab}
                     options={({ route, navigation }) =>
                         ({
-
                             title: route.params.postName,
                             headerStyle: {
                                 backgroundColor: COLORS.LIGHT_GREY,
@@ -187,14 +135,12 @@ export default function AppNavigation() {
                                 />
                         })}
                 />
-                {/* экран объекта */}
+                {/* экран продавца */}
                 <Stack.Screen
                     name="SellerScreen"
                     component={SellerScreen}
-                    // component={TestBottomTab}
                     options={({ route, navigation }) =>
                         ({
-
                             title: route.params.postName,
                             headerStyle: {
                                 backgroundColor: COLORS.LIGHT_GREY,
@@ -213,16 +159,10 @@ export default function AppNavigation() {
                 <Stack.Screen name="EditOrderScreen" component={EditOrderScreen} />
                 <Stack.Screen name="EditSellerScreen" component={EditSellerScreen} />
                 <Stack.Screen name="CreateOrderScreen" component={CreateOrderScreen} />
-
-
                 <Stack.Screen name="CreateSellerScreen" component={CreateSellerScreen} />
-                
-                {/* нужно ли здесь прописывать все экраны которые есть в приложении??? */}
                 <Stack.Screen name="CreateSpendingScreen" component={CreateSpendingScreen} />
                 <Stack.Screen name="CreateDepositScreen" component={CreateDepositScreen} />
                 <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
-
-                
             </Stack.Navigator>
         </NavigationContainer>
     );

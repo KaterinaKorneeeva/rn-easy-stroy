@@ -1,21 +1,35 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Dimensions, Image } from 'react-native';
 import { COLORS, FONTS } from '../theme'
 const { width } = Dimensions.get('screen');
 
-const Table = ({ data }) => {
+const Table = ({ data, route}) => {
+    
+   
+   
     return (
-        <View style={styles.tableWrap}>
+        <View 
+        style= {[styles.tableWrap, { height: route.name !== "HistoryScreen" ?  250 : ''}]}
+        
+       
+        >
             <FlatList data={data}
                 contentContainerStyle={{ justifyContent: 'center' }}
                 keyExtractor={order => order.id.toString()}
                 renderItem={({ item }) =>
                     <View style={styles.tableRow} key={item.id}>
-                        <View style={styles.tableCell1}></View>
+                        <View style={styles.tableCell1}>
+                          
+                                <Image source={{ uri: item.sellerLogo }} style={styles.image} />
+                            
+                           
+                        </View>
                         <View style={styles.tableCell2}>
-                            <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}> {item.expenseName}</Text>
+                            <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}> {item.name}</Text>
                             <Text style={{ color: COLORS.BLACK, ...FONTS.body2, marginBottom: 5 }}>{item.sellerName}</Text>
-                            <Text style={{ color: COLORS.BLUE, ...FONTS.smallTitle }}>-{item.sum} ₽</Text>
+                            <Text style={{ color: COLORS.BLUE, ...FONTS.smallTitle }}>
+                                {item.type === 'deposit' ? `+ ${item.sum} ₽ ` : `-${item.sum} ₽`}
+                            </Text>
                             <Text style={{ color: COLORS.GREY, ...FONTS.body2, }}>Кто добавил</Text>
                         </View>
                         <View style={styles.tableCell3}>
@@ -24,34 +38,12 @@ const Table = ({ data }) => {
                     </View>
                 }
             />
-            {/* {data.map((item) => (
-                <View
-                    key={item.id}
-                    style={{ flexDirection: 'row', position: 'relative', flexWrap: 'nowrap', justifyContent: "space-between" }}>
-
-                    <View
-                        style={{ backgroundColor: COLORS.BLUE, borderRadius: 50, width: 40, height: 40, marginRight: 15, }} >
-                    </View>
-                    <View style={{ flexGrow: 1, borderColor: 'red', borderWidth: 1, marginLeft: 0 }}>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.body1, }}> {item.name}</Text>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.body2, marginBottom: 5 }}>{item.sellerName}</Text>
-                        <Text style={{ color: COLORS.BLUE, ...FONTS.smallTitle }}>-{item.sum} ₽</Text>
-                        <Text style={{ color: COLORS.GREY, ...FONTS.body2, }}>Кто добавил</Text>
-                    </View>
-
-                    <View style={{ borderColor: 'red', borderWidth: 1, alignSelf: 'flex-start' }}>
-                        <Text>{item.date}</Text>
-                    </View>
-
-                </View>
-            ))} */}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     tableWrap: {
-        height: 250,
         marginTop: 20,
     },
 
@@ -65,7 +57,6 @@ const styles = StyleSheet.create({
 
     tableCell1: {
         marginRight: 15,
-        backgroundColor: COLORS.BLUE,
         borderRadius: 50,
         width: 40,
         height: 40,
@@ -80,6 +71,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         textAlign: 'left'
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 50
     },
 });
 

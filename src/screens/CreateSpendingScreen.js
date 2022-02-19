@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { View, Text, StyleSheet, Button} from 'react-native'
 import { COLORS, FONTS } from '../theme'
+import { InfoBalance } from '../components/InfoBalance'
 import { AppTextInput } from '../components/ui/AppTextInput'
 import { AppLabel } from '../components/ui/AppLabel'
 import { AppModal } from '../components/ui/AppModal'
@@ -9,7 +10,7 @@ import Table from '../components/Table'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { CommonActions } from '@react-navigation/native';
 import { sellerInfoById } from '../../src/orders'
-import { loadExpenses, loadSellers, addExpense, addSeller} from '../store/actions/order'
+import { loadOperations, loadSellers, addExpense, addSeller} from '../store/actions/order'
 
 export const CreateSpendingScreen = ({ route, navigation }) => {
 
@@ -24,7 +25,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadExpenses())
+        dispatch(loadOperations())
     }, [dispatch])
 
 
@@ -61,29 +62,34 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
 
     // добавление имени и лого продавца по id продавца
     const adaptData = (item) => {
-        const sellerTest = sellerInfoById(listSellers, item.seller_id)
+        const sellerInfo = sellerInfoById(listSellers, item.seller_id)
         return Object.assign(item, {
-            sellerName: sellerTest.name,
-            sellerLogo: 'sellerLogo',
+            sellerName: sellerInfo.name,
+            sellerLogo: sellerInfo.logo,
         });
     };
-    const listExpensesFull = useSelector(state => state.order.allExpenses).map((item, i) => adaptData(item))
+
+    const listExpensesFull = useSelector(state => state.order.allOperations)
+        .filter((offer) => offer.type === 'expense')
+        .map((item, i) => adaptData(item))
 
     const nextStepHandler = () => {
         setStep(step + 1)
     }
 
+    // создать расход - тип  type: 'expense' в список всех операций,
     const saveHandler = () => {
-        alert('Сделать фото чека?')
+        alert('Новая строка создана')
         setSum('')
         setStep(1)
 
         const spendingItem = {
             date: new Date().toDateString().slice(4, 10),
             sum: sum,
-            expenseName: expenseName,
+            name: expenseName,
             seller_id: label,
             comment: comment,
+            type: 'expense',
         }
 
         dispatch(addExpense(spendingItem))
@@ -100,13 +106,13 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
             >
-
                 <Text style={styles.title}> Добавить нового продавца</Text>
                 <AppTextInput
                     placeholder="наименование"
                     value={sellerNew}
                     inputChange={setSellerNew}
                     label="наименование"
+                    autoFocus
                 />
                 {/* добавить календарь */}
                 <Button
@@ -131,20 +137,12 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                     />
                 </View>
 
-                <View style={[styles.boxInfo]}>
-                    <View style={[styles.item, styles.shadowProp]}>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.body2 }}>расход</Text>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.smallTitle }}>135 000 ₽</Text>
-                    </View>
-                    <View style={[styles.item, styles.shadowProp]}>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.body2 }}>баланс</Text>
-                        <Text style={{ color: COLORS.BLACK, ...FONTS.smallTitle }}>1 000 000 ₽</Text>
+                {/* информация о балансе объекта */}
+                <InfoBalance/>
 
-                    </View>
-                </View>
                 {/* таблица со списком расходов */}
+                <Table data={listExpensesFull} route={route} />
 
-                <Table data={listExpensesFull} />
 
                 {/* пошаговая запись затрат */}
                 {/* 1ый шаг  ввод суммы обязательное*/}
@@ -156,6 +154,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             inputChange={setSum}
                             keyboardType="numeric"
                             label="введите сумму"
+                            autoFocus
                         />
                         {/* добавить календарь */}
                         <Button
@@ -175,6 +174,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             value={expenseName}
                             inputChange={expenseNameSet}
                             label="наименование"
+                            autoFocus
                         />
                         {/* добавить календарь */}
                         <Button
@@ -217,6 +217,7 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                             inputChange={commentSet}
                             multiline
                             label="Комментарий"
+                            autoFocus
                         />
 
                         <Button
@@ -226,33 +227,18 @@ export const CreateSpendingScreen = ({ route, navigation }) => {
                         />
                     </View>
                 }
-
             </View>
         </KeyboardAwareScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         backgroundColor: COLORS.WHITE,
         paddingHorizontal: 20,
     },
 
-    boxInfo: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    item: {
-        backgroundColor: "white",
-        borderRadius: 10,
-        maxWidth: 167,
-
-        shadowColor: "#000",
-        padding: 10,
-        flex: 1,
-    },
     shadowProp: {
         shadowColor: COLORS.BLACK,
         shadowOffset: {
@@ -263,16 +249,6 @@ const styles = StyleSheet.create({
         shadowRadius: 2.62,
 
         elevation: 4,
-    },
-
-    modalView: {
-        marginTop: '20%',
-        marginVertical: 20,
-        marginHorizontal: 20,
-        backgroundColor: COLORS.WHITE,
-        borderRadius: 10,
-        padding: 35,
-        alignItems: "center",
     },
 
 })

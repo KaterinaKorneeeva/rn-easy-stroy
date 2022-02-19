@@ -24,13 +24,11 @@ export const Card = ({ item, type, onOpen }) => {
                             </View>
                             <Text style={{ color: COLORS.BLACK, ...FONTS.body1 }}>{item.name}</Text>
                         </View>
-
-                        <Text style={{ color: COLORS.GREY, ...FONTS.body2 }}>{item.responsible}</Text>
                         <Text style={{ position: 'absolute', bottom: 15, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
-                            {item.numberOrders}
+                            покупок {item.numberOrders}
                         </Text>
                         <Text style={{ position: 'absolute', bottom: 35, left: 15, color: COLORS.BLACK, ...FONTS.body2 }}>
-                            {item.balance}
+                            на сумму {item.balance}
                         </Text>
                     </>
                 }

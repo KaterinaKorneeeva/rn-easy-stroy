@@ -1,12 +1,13 @@
-import { extend } from "../../utils";
-import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_EXPENSES, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER } from "../types"
+import { extend, replaceItem } from "../../utils";
+import { LOAD_ORDERS, REMOVE_ORDER, ADD_ORDER, UPDATE_ORDER, LOAD_OPERATIONS, ADD_EXPENSE, LOAD_SELLERS, ADD_SELLER, UPDATE_SELLER } from "../types"
 
 
 const initialState = {
   allOrders: [],
   allSellers: [],
-  allExpenses: [],
-  allSellers: []
+  allOperations: [],
+  allSellers: [],
+  allOperationsExpense:[]
 }
 
 export const orderReducer = (state = initialState, action) => {
@@ -42,14 +43,22 @@ export const orderReducer = (state = initialState, action) => {
           return order
         })
       });
-    case LOAD_EXPENSES:
+
+    //   // expense
+    // case LOAD_OPERATIONS:
+    //   return extend(state, {
+    //     allOperations: action.payload,
+    //   });
+
+
+      case LOAD_OPERATIONS:
       return extend(state, {
-        allExpenses: action.payload,
+        allOperations: action.payload,
       });
 
     case ADD_EXPENSE:
       return extend(state, {
-        allExpenses: [{ ...action.payload }, ...state.allExpenses]
+        allOperations: [{ ...action.payload }, ...state.allOperations]
       });
 
     case LOAD_SELLERS:
@@ -61,18 +70,18 @@ export const orderReducer = (state = initialState, action) => {
         allSellers: [{ ...action.payload }, ...state.allSellers]
       });
 
-      case UPDATE_SELLER:
-        return extend(state, {
-          allSellers: state.allSellers.map(seller => {
-            if (seller.id === action.payload.id) {
-              seller.name = action.payload.name
-              seller.address = action.payload.address
-              seller.phone = action.payload.phone
-              seller.description = action.payload.description
-            }
-            return seller
-          })
-        });
+    case UPDATE_SELLER:
+      return extend(state, {
+        allSellers: state.allSellers.map(seller => {
+          if (seller.id === action.payload.id) {
+            seller.name = action.payload.name
+            seller.address = action.payload.address
+            seller.phone = action.payload.phone
+            seller.description = action.payload.description
+          }
+          return seller
+        })
+      });
   }
 
   return state

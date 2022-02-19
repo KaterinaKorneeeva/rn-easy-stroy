@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View, Text} from 'react-native';
 import { COLORS, FONTS } from '../../theme'
 
 export const AppTextInput =
-    ({ value ='', inputChange, placeholder, keyboardType = 'default', dataDetectorTypes, multiline = false, size = 'big', label, ...props }) => {
+    ({ value ='', inputChange, placeholder, keyboardType = 'default', dataDetectorTypes, multiline = false, size = 'big', label, autoFocus = false, ...props }) => {
         return (
             <View style={size === 'small' ? {width: '45%'} : {width: '100%'}}>
                 {value !== ''  && <Text style={styles.label}>{label}</Text> } 
@@ -15,6 +15,7 @@ export const AppTextInput =
                     keyboardType={keyboardType}
                     dataDetectorTypes={dataDetectorTypes}
                     multiline={multiline}
+                    autoFocus={autoFocus}
                 />
             </View>
 

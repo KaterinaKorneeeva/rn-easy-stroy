@@ -79,12 +79,6 @@ export const SellerScreen = ({ route, navigation }) => {
         {renderTopInfoOrder()}
         {/* описание объекта */}
         {renderBottomInfoOrder()}
-
-        {/* <Button
-          title='Удалить'
-          color={COLORS.BLUE}
-          onPress={removeHandler}
-        /> */}
       </ScrollView>
     </View>
   )
